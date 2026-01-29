@@ -35,43 +35,43 @@ onMounted(async () => {
       }
     })
 
-    // Init state: Hide chars via GSAP immediately ONLY if we are setting up the animation successfully
-    // But to be safe against "disappearing", we rely on the timeline .from() which sets immediateRender: true by default
-    
-    // Vine Setup: needs explicit set to hide initially
-    const length = pathRef.value!.getTotalLength()
+    // Vine Setup
+    const length = pathRef.value!.getTotalLength() + 5 // Extra buffer
     gsap.set(pathRef.value, { strokeDasharray: length, strokeDashoffset: length, opacity: 1 })
     
-    if (leafRef.value) gsap.set(leafRef.value, { scale: 0, opacity: 0 })
+    // Leaf setup
+    if (leafRef.value) gsap.set(leafRef.value, { scale: 0, opacity: 0, rotation: -15 })
 
+    // Timeline
     tl
-      // 1. Vine draws
+      // 1. Vine draws naturally (Organic flow)
       .to(pathRef.value, {
         strokeDashoffset: 0,
-        duration: 0.8,
-        ease: 'power2.out'
+        duration: 1.2,
+        ease: 'power2.inOut' // Smooth accel/decel
       })
-      // 2. Text chars appear (Staggered fade-up)
+      // 2. Text flows in
       .from(containerRef.value!.querySelectorAll('.char'), {
-        y: 20,
+        y: 15,
         opacity: 0,
-        duration: 0.6,
-        stagger: 0.03,
-        ease: 'back.out(1.5)'
-      }, "-=0.6")
-      // 3. Bloom
+        duration: 0.8,
+        stagger: 0.04,
+        ease: 'power2.out'
+      }, "-=0.8")
+      // 3. Bloom gently gently pop
       .to(leafRef.value, {
         scale: 1,
         opacity: 1,
-        duration: 0.4,
-        ease: 'elastic.out(1.2, 0.5)'
-      }, "-=0.2")
-
-    // Continuous Pulse (Subtle)
+        rotation: 0,
+        duration: 0.6,
+        ease: 'back.out(1.5)'
+      }, "-=0.3")
+    
+    // Subtle breathing glow
     gsap.to(leafRef.value, {
-        filter: 'drop-shadow(0 0 8px rgba(45,212,191,0.8))',
-        scale: 1.1,
-        duration: 2,
+        filter: 'drop-shadow(0 0 6px rgba(45,212,191,0.6))',
+        scale: 1.05,
+        duration: 2.5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
@@ -85,37 +85,40 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="containerRef" class="relative inline-block pb-2">
+  <div ref="containerRef" class="relative inline-block pb-3">
     <svg 
-      class="absolute bottom-0 left-0 w-full h-[30px] pointer-events-none overflow-visible z-0 opacity-0 transition-opacity duration-300" 
+      class="absolute bottom-0 left-0 w-full h-[36px] pointer-events-none overflow-visible z-0 opacity-0 transition-opacity duration-500" 
       :class="{ '!opacity-100': true }" 
-      viewBox="0 0 300 30" 
+      viewBox="0 0 300 36" 
       preserveAspectRatio="none"
     >
       <defs>
-        <linearGradient id="vineGradientSolid" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.2" />
-          <stop offset="50%" stop-color="#2DD4BF" stop-opacity="0.8" />
-          <stop offset="100%" stop-color="#3B82F6" stop-opacity="1" />
+        <linearGradient id="premiumVine" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2DD4BF" />
+          <stop offset="50%" stop-color="#2DD4BF" />
+          <stop offset="100%" stop-color="#5EEAD4" /> <!-- Lighter tail -->
         </linearGradient>
       </defs>
 
-      <!-- Flatter, Cleaner Wave -->
+      <!-- Smooth Organic Cubic Bezier Curve -->
       <path
         ref="pathRef"
-        d="M2,20 Q150,32 298,20"
+        d="M5,28 C80,38 220,38 295,24"
         fill="none"
-        stroke="url(#vineGradientSolid)"
+        stroke="url(#premiumVine)"
         stroke-width="3"
         stroke-linecap="round"
-        class="filter drop-shadow-[0_0_3px_rgba(45,212,191,0.3)]"
+        class="filter drop-shadow-[0_0_2px_rgba(45,212,191,0.3)]"
       />
       
-      <!-- Bloom exactly at end logic (298, 20) -->
-      <g ref="leafRef" transform="translate(298, 20)">
-         <circle r="3" fill="#3B82F6" />
-         <path d="M0,0 C3,-4 6,-4 7,0 C6,4 3,4 0,0" fill="#ccfbf1" transform="rotate(-45) translate(2,-2)" />
-         <path d="M0,0 C-3,4 -6,4 -7,0 C-6,-4 -3,-4 0,0" fill="#14b8a6" transform="rotate(-45) translate(-2,2)" />
+      <!-- Bloom at (295, 24) -->
+      <g ref="leafRef" transform="translate(295, 24)">
+         <circle r="3.5" fill="#5EEAD4" />
+         <!-- Organic Asymmetric Petals -->
+         <path d="M0,0 C2,-5 8,-6 9,0 C7,5 2,4 0,0" fill="#ccfbf1" transform="rotate(-30) translate(2,-2)" />
+         <path d="M0,0 C-3,5 -8,4 -9,0 C-7,-5 -2,-5 0,0" fill="#14b8a6" transform="rotate(-30) translate(-2,2)" />
+         <!-- Particle -->
+         <circle r="1.5" fill="#fff" transform="translate(4, -4)" class="animate-pulse" />
       </g>
     </svg>
 
@@ -143,4 +146,3 @@ svg path {
     /* No initial opacity 0 to prevent FOUC/Invisible text bug */
 }
 </style>
-```
