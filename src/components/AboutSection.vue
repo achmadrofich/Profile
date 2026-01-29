@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import GrowthHeader from './GrowthHeader.vue'
+</script>
+
 <template>
   <section id="about" class="py-24 px-6 md:px-12 bg-dark">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
