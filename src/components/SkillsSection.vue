@@ -11,6 +11,7 @@ interface Skill {
   experience: string
   description: string
   projects: string[]
+  techStack?: { name: string, icon: string }[]
 }
 
 interface DetailItem {
@@ -21,14 +22,125 @@ interface DetailItem {
 type GridItem = Skill | DetailItem
 
 const rawSkills: Skill[] = [
-  { type: 'skill', name: 'Blockchain', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg', proficiency: 90, experience: '3+ Years', description: 'Specialized in Smart Contract (Solidity), DeFi, and Web3 integration.', projects: ['Web3 Wallet', 'Smart Contracts'] },
-  { type: 'skill', name: 'Laravel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg', proficiency: 95, experience: '4+ Years', description: 'Robust REST APIs, background jobs, and scalable architecture.', projects: ['E-commerce', 'CRM Systems'] },
-  { type: 'skill', name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg', proficiency: 88, experience: '3 Years', description: 'Reactive SPAs with Composition API and Pinia.', projects: ['Web Portfolio', 'Crypto Dashboard'] },
-  { type: 'skill', name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', proficiency: 85, experience: '3 Years', description: 'AI/ML models, data analysis, and automation.', projects: ['AI Chatbot', 'Market Tool'] },
-  { type: 'skill', name: 'TensorFlow', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg', proficiency: 80, experience: '2 Years', description: 'Neural Networks for predictive text/image recognition.', projects: ['Image Classifier', 'Prediction'] },
-  { type: 'skill', name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', proficiency: 85, experience: '3 Years', description: 'Server-side JS for realtime apps and microservices.', projects: ['Chat App', 'API Gateway'] },
-  { type: 'skill', name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', proficiency: 92, experience: '5+ Years', description: 'Query optimization, DB design, and normalization.', projects: ['Enterprise ERP', 'User Systems'] },
-  { type: 'skill', name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', proficiency: 75, experience: '2 Years', description: 'UI/UX prototyping and design systems.', projects: ['Portfolio Design', 'Mockups'] },
+  { 
+    type: 'skill', 
+    name: 'Laravel & MySQL', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg', 
+    proficiency: 95, 
+    experience: '4+ Years', 
+    description: 'Fullstack development using Laravel ecosystem (Sanctum, Eloquent) optimized with MySQL complex queries and Redis caching.', 
+    projects: ['Enterprise ERP', 'SaaS Platforms'],
+    techStack: [
+      { name: 'Laravel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg' },
+      { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+      { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+      { name: 'PHP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg' }
+    ]
+  },
+  { 
+    type: 'skill', 
+    name: 'Next.js Stack', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', 
+    proficiency: 90, 
+    experience: '3 Years', 
+    description: 'Modern serverless architecture using Next.js (App Router), Prisma ORM, and TiDB for scalable data solutions.', 
+    projects: ['DeFi Dashboard', 'NFT Marketplace'],
+    techStack: [
+      { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+      { name: 'Prisma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg' },
+      { name: 'Tailwind', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' }
+    ]
+  },
+  { 
+    type: 'skill', 
+    name: 'MERN Stack', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', 
+    proficiency: 88, 
+    experience: '3 Years', 
+    description: 'Full JavaScript stack (MongoDB, Express, React, Node) for building dynamic real-time applications and RESTful APIs.', 
+    projects: ['Social Network', 'Task Management'],
+    techStack: [
+      { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+      { name: 'Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
+      { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+      { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' }
+    ]
+  },
+  { 
+    type: 'skill', 
+    name: 'Web3 & Blockchain', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg', 
+    proficiency: 90, 
+    experience: '3+ Years', 
+    description: 'Smart Contract development (Solidity), dApp integration (Wagmi/Ethers), and EVM architecture.', 
+    projects: ['Web3 Wallet', 'Token Staking'],
+    techStack: [
+      { name: 'Solidity', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
+      { name: 'Hardhat', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hardhat/hardhat-original.svg' },
+      { name: 'Ethers.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }, 
+      { name: 'IPFS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/filezilla/filezilla-original.svg' } // Using filezilla as placeholder or use generic
+    ]
+  },
+  { 
+    type: 'skill', 
+    name: 'AI Engineering', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', 
+    proficiency: 85, 
+    experience: '3 Years', 
+    description: 'Building AI/ML models with Python, TensorFlow, and PyTorch for predictive analytics and automation.', 
+    projects: ['Chatbot RAG', 'Market Prediction'],
+    techStack: [
+      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+      { name: 'TensorFlow', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
+      { name: 'PyTorch', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg' },
+      { name: 'Pandas', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' }
+    ]
+  },
+  { 
+    type: 'skill', 
+    name: 'Vue.js Ecosystem', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg', 
+    proficiency: 92, 
+    experience: '4 Years', 
+    description: 'Advanced frontend development with Vue 3, Nuxt.js, Pinia, and Tailwind CSS for performant UIs.', 
+    projects: ['Crypto Dashboard', 'Portfolio Site'],
+    techStack: [
+      { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
+      { name: 'Nuxt', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg' },
+      { name: 'Pinia', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' }, // No pinia specific icon in devicon standard sometimes, reuse vue or generic
+      { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vite/vite-original.svg' }
+    ]
+  },
+  { 
+    type: 'skill', 
+    name: 'Cloud & DevOps', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', 
+    proficiency: 80, 
+    experience: '2 Years', 
+    description: 'Containerization (Docker), CI/CD pipelines (GitHub Actions), and Cloud deployment (AWS/Vercel).', 
+    projects: ['Microservices API', 'Auto-Deployment'],
+    techStack: [
+      { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+      { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
+      { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+      { name: 'Nginx', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg' }
+    ]
+  },
+  { 
+    type: 'skill', 
+    name: 'UI/UX Design', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', 
+    proficiency: 75, 
+    experience: '2 Years', 
+    description: 'Translating concepts into high-fidelity prototypes and design systems using Figma.', 
+    projects: ['App Mockups', 'Design Systems'],
+    techStack: [
+      { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+      { name: 'Sketch', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg' },
+      { name: 'Photoshop', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-original.svg' }
+    ]
+  },
 ]
 
 const selectedSkillName = ref<string | null>(null)
@@ -143,12 +255,12 @@ const toggleSkill = (skill: Skill) => {
 
                <div class="flex flex-col md:flex-row gap-8 items-start">
                   <!-- Icon & Basic Info -->
-                  <div class="flex-shrink-0 flex flex-col items-center gap-4 min-w-[150px]">
+                  <div class="flex-shrink-0 flex flex-col items-center gap-4 min-w-[200px]">
                       <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
                         <img 
                           :src="(item as DetailItem).skill.icon" 
                           class="w-20 h-20 drop-shadow-lg" 
-                          :class="{ 'invert brightness-200': ['Blockchain', 'Next.js'].includes((item as DetailItem).skill.name) }" 
+                          :class="{ 'invert brightness-200': ['Next.js Stack', 'Deep Learning'].includes((item as DetailItem).skill.name) }" 
                         />
                       </div>
                       <div class="text-center">
@@ -161,7 +273,7 @@ const toggleSkill = (skill: Skill) => {
 
                   <!-- Details Grid -->
                   <div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-                      <!-- Progress -->
+                      <!-- Progress & Description -->
                       <div>
                         <div class="flex justify-between text-sm text-gray-400 mb-2">
                              <span>Proficiency</span>
@@ -177,6 +289,22 @@ const toggleSkill = (skill: Skill) => {
                          <p class="mt-6 text-gray-400 leading-relaxed text-sm">
                            {{ (item as DetailItem).skill.description }}
                          </p>
+
+                         <!-- Inner Stacks Icons -->
+                         <div v-if="(item as DetailItem).skill.techStack" class="mt-6">
+                            <h4 class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2">
+                              <div 
+                                v-for="tech in (item as DetailItem).skill.techStack" 
+                                :key="tech.name"
+                                class="flex items-center gap-2 px-2 py-1.5 bg-black/40 rounded-lg border border-white/5"
+                                title="tech.name"
+                              >
+                                <img :src="tech.icon" class="w-4 h-4 opacity-80" :class="{ 'invert': ['Next.js', 'Express', 'Flask', 'GitHub Actions'].includes(tech.name) }"/>
+                                <span class="text-xs text-gray-300">{{ tech.name }}</span>
+                              </div>
+                            </div>
+                         </div>
                       </div>
 
                       <!-- Projects -->
