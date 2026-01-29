@@ -70,16 +70,16 @@ const rawSkills: Skill[] = [
   { 
     type: 'skill', 
     name: 'Web3 & Blockchain', 
-    icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/ethereum/ethereum-original.svg', 
+    icon: 'https://www.vectorlogo.zone/logos/ethereum/ethereum-icon.svg', 
     proficiency: 90, 
     experience: '3+ Years', 
     description: 'Smart Contract development (Solidity), dApp integration (Wagmi/Ethers), and EVM architecture.', 
     projects: ['Web3 Wallet', 'Token Staking'],
     techStack: [
-      { name: 'Solidity', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
+      { name: 'Solidity', icon: 'https://www.vectorlogo.zone/logos/soliditylang/soliditylang-icon.svg' },
       { name: 'Hardhat', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hardhat/hardhat-original.svg' },
       { name: 'Ethers.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }, 
-      { name: 'Metamask', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/metamask/metamask-original.svg' }
+      { name: 'Metamask', icon: 'https://www.vectorlogo.zone/logos/metamaskio/metamaskio-icon.svg' }
     ]
   },
   { 
@@ -305,7 +305,7 @@ const toggleSkill = (skill: Skill) => {
                                 class="flex items-center gap-2 px-2 py-1.5 bg-black/40 rounded-lg border border-white/5"
                                 title="tech.name"
                               >
-                                <img :src="tech.icon" class="w-4 h-4 opacity-80" :class="{ 'invert': ['Next.js', 'Express', 'Flask', 'GitHub Actions'].includes(tech.name) }"/>
+                                <img :src="tech.icon" class="w-4 h-4 opacity-80" :class="{ 'invert': ['Next.js', 'Express', 'Flask', 'GitHub Actions', 'Solidity'].includes(tech.name) }"/>
                                 <span class="text-xs text-gray-300">{{ tech.name }}</span>
                               </div>
                             </div>
