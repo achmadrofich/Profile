@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.16",
+    "ai": "^6.0.59",
     "aos": "^2.3.4",
     "vue": "^3.5.24"
   },
