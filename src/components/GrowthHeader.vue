@@ -35,10 +35,10 @@ onMounted(async () => {
       }
     })
 
-    // Init state safely (set opacity 0 via JS only)
-    gsap.set(containerRef.value!.querySelectorAll('.char'), { y: 20, opacity: 0 })
+    // Init state: Hide chars via GSAP immediately ONLY if we are setting up the animation successfully
+    // But to be safe against "disappearing", we rely on the timeline .from() which sets immediateRender: true by default
     
-    // Vine Setup
+    // Vine Setup: needs explicit set to hide initially
     const length = pathRef.value!.getTotalLength()
     gsap.set(pathRef.value, { strokeDasharray: length, strokeDashoffset: length, opacity: 1 })
     
@@ -48,14 +48,14 @@ onMounted(async () => {
       // 1. Vine draws
       .to(pathRef.value, {
         strokeDashoffset: 0,
-        duration: 1.0,
-        ease: 'power2.inOut'
+        duration: 0.8,
+        ease: 'power2.out'
       })
-      // 2. Text staggers in
-      .to(containerRef.value!.querySelectorAll('.char'), {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
+      // 2. Text chars appear (Staggered fade-up)
+      .from(containerRef.value!.querySelectorAll('.char'), {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
         stagger: 0.03,
         ease: 'back.out(1.5)'
       }, "-=0.6")
@@ -67,10 +67,11 @@ onMounted(async () => {
         ease: 'elastic.out(1.2, 0.5)'
       }, "-=0.2")
 
-    // Pulse
+    // Continuous Pulse (Subtle)
     gsap.to(leafRef.value, {
-        filter: 'drop-shadow(0 0 10px rgba(45,212,191,0.8))',
-        duration: 1.5,
+        filter: 'drop-shadow(0 0 8px rgba(45,212,191,0.8))',
+        scale: 1.1,
+        duration: 2,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
@@ -84,49 +85,42 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="containerRef" class="relative inline-block py-6">
+  <div ref="containerRef" class="relative inline-block pb-2">
     <svg 
-      class="absolute -bottom-2 -left-4 w-[115%] h-[50px] pointer-events-none overflow-visible z-0 opacity-0 transition-opacity duration-300" 
+      class="absolute bottom-0 left-0 w-full h-[30px] pointer-events-none overflow-visible z-0 opacity-0 transition-opacity duration-300" 
       :class="{ '!opacity-100': true }" 
-      viewBox="0 0 300 50" 
+      viewBox="0 0 300 30" 
       preserveAspectRatio="none"
     >
       <defs>
-        <linearGradient id="vineGradientSimple" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0" />
-          <stop offset="30%" stop-color="#2DD4BF" stop-opacity="0.8" />
-          <stop offset="100%" stop-color="#3B82F6" />
+        <linearGradient id="vineGradientSolid" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.2" />
+          <stop offset="50%" stop-color="#2DD4BF" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#3B82F6" stop-opacity="1" />
         </linearGradient>
       </defs>
 
-      <!-- Single Elegant Wave -->
+      <!-- Flatter, Cleaner Wave -->
       <path
         ref="pathRef"
-        d="M10,25 Q150,50 290,25"
+        d="M2,20 Q150,32 298,20"
         fill="none"
-        stroke="url(#vineGradientSimple)"
+        stroke="url(#vineGradientSolid)"
         stroke-width="3"
         stroke-linecap="round"
-        class="filter drop-shadow-[0_0_5px_rgba(45,212,191,0.4)]"
+        class="filter drop-shadow-[0_0_3px_rgba(45,212,191,0.3)]"
       />
       
-      <!-- Refined Bloom -->
-      <g ref="leafRef" transform="translate(290, 25)">
-         <!-- Center Core -->
-         <circle r="3" fill="#3B82F6" class="filter drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-         
-         <!-- Petals -->
+      <!-- Bloom exactly at end logic (298, 20) -->
+      <g ref="leafRef" transform="translate(298, 20)">
+         <circle r="3" fill="#3B82F6" />
          <path d="M0,0 C3,-4 6,-4 7,0 C6,4 3,4 0,0" fill="#ccfbf1" transform="rotate(-45) translate(2,-2)" />
          <path d="M0,0 C-3,4 -6,4 -7,0 C-6,-4 -3,-4 0,0" fill="#14b8a6" transform="rotate(-45) translate(-2,2)" />
-         
-         <!-- Tiny Particles -->
-         <circle r="1" fill="#fff" transform="translate(5, -5)" class="animate-pulse" />
-         <circle r="1" fill="#fff" transform="translate(-4, 4)" class="animate-pulse" style="animation-delay: 0.5s" />
       </g>
     </svg>
 
     <h2 class="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-tight flex gap-3 flex-wrap justify-center">
-       <span v-for="(word, i) in text.split(' ')" :key="i" class="inline-block whitespace-nowrap mb-1">
+       <span v-for="(word, i) in text.split(' ')" :key="i" class="inline-block whitespace-nowrap">
           <span 
             v-for="(char, j) in word" 
             :key="j" 
@@ -145,6 +139,8 @@ onUnmounted(() => {
 svg path {
     vector-effect: non-scaling-stroke; 
 }
-/* Removed .char opacity: 0 to fallback to visible */
+.char {
+    /* No initial opacity 0 to prevent FOUC/Invisible text bug */
+}
 </style>
 ```
