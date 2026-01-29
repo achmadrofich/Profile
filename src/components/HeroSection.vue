@@ -63,10 +63,25 @@ onUnmounted(() => {
         </p>
         
         <div class="flex flex-wrap gap-4 justify-center md:justify-start" data-aos="fade-up" data-aos-delay="300">
-          <n-button type="primary" size="large" class="!px-8 !py-6 !text-lg !font-bold shadow-lg shadow-teal-500/20 hover:shadow-teal-500/40 transition-shadow">
+          <n-button 
+            tag="a" 
+            href="/files/Curriculum_Vitae_Abdul_Rochim.pdf" 
+            target="_blank"
+            type="primary" 
+            size="large" 
+            class="!px-8 !py-6 !text-lg !font-bold shadow-lg shadow-teal-500/20 hover:shadow-teal-500/40 transition-shadow"
+          >
             Resume
           </n-button>
-          <n-button strong secondary type="primary" size="large" class="!px-8 !py-6 !text-lg !font-bold hover:bg-teal-500/10">
+          <n-button 
+            tag="a"
+            href="#contact"
+            strong 
+            secondary 
+            type="primary" 
+            size="large" 
+            class="!px-8 !py-6 !text-lg !font-bold hover:bg-teal-500/10"
+          >
             Contact Me
           </n-button>
         </div>

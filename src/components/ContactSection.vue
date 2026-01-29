@@ -24,12 +24,12 @@ const handleSubmit = (e: Event) => {
       <p class="text-gray-400 mb-8">Feel free to reach out for collaborations or just a friendly hello!</p>
       
       <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-        <div class="flex items-center gap-2">
+        <a href="mailto:abdul.rochimx@gmail.com" class="flex items-center gap-2 hover:text-teal-400 transition-colors">
             <span class="text-teal-400">📧</span> abdul.rochimx@gmail.com
-        </div>
-        <div class="flex items-center gap-2">
+        </a>
+        <a href="tel:+628777964864" class="flex items-center gap-2 hover:text-teal-400 transition-colors">
             <span class="text-teal-400">📞</span> +62-8777-964-864
-        </div>
+        </a>
         <div class="flex items-center gap-2">
             <span class="text-teal-400">📍</span> Sidoarjo, East Java
         </div>
