@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { NCard, NProgress } from 'naive-ui'
 import { CloseCircleOutline } from '@vicons/ionicons5'
 
@@ -33,12 +33,26 @@ const rawSkills: Skill[] = [
 
 const selectedSkillName = ref<string | null>(null)
 const cols = ref(4)
+const animatedProficiency = ref(0) // For animating the bar
 
 const updateCols = () => {
   if (window.innerWidth < 640) cols.value = 2
   else if (window.innerWidth < 1024) cols.value = 3
   else cols.value = 4
 }
+
+// Animate proficiency when selection changes
+watch(selectedSkillName, (newVal) => {
+  if (newVal) {
+    animatedProficiency.value = 0
+    const skill = rawSkills.find(s => s.name === newVal)
+    if (skill) {
+      setTimeout(() => {
+        animatedProficiency.value = skill.proficiency
+      }, 100)
+    }
+  }
+})
 
 onMounted(() => {
   updateCols()
@@ -121,17 +135,21 @@ const toggleSkill = (skill: Skill) => {
             class="col-span-2 lg:col-span-4 w-full"
             data-aos="fade-in"
           >
-            <div class="bg-gray-900/95 border border-teal-500/30 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div class="bg-gray-800 border border-teal-500/50 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden backdrop-blur-xl">
                <!-- Close Button -->
-               <button @click="selectedSkillName = null" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+               <button @click="selectedSkillName = null" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
                   <CloseCircleOutline class="w-6 h-6" />
                </button>
 
                <div class="flex flex-col md:flex-row gap-8 items-start">
                   <!-- Icon & Basic Info -->
                   <div class="flex-shrink-0 flex flex-col items-center gap-4 min-w-[150px]">
-                      <div class="p-4 bg-gray-800 rounded-2xl border border-white/10">
-                        <img :src="(item as DetailItem).skill.icon" class="w-20 h-20" />
+                      <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                        <img 
+                          :src="(item as DetailItem).skill.icon" 
+                          class="w-20 h-20 drop-shadow-lg" 
+                          :class="{ 'invert brightness-200': ['Blockchain', 'Next.js'].includes((item as DetailItem).skill.name) }" 
+                        />
                       </div>
                       <div class="text-center">
                         <h3 class="text-xl font-bold text-white">{{ (item as DetailItem).skill.name }}</h3>
@@ -147,11 +165,11 @@ const toggleSkill = (skill: Skill) => {
                       <div>
                         <div class="flex justify-between text-sm text-gray-400 mb-2">
                              <span>Proficiency</span>
-                             <span class="text-teal-400 font-mono">{{ (item as DetailItem).skill.proficiency }}%</span>
+                             <span class="text-teal-400 font-mono">{{ animatedProficiency }}%</span>
                         </div>
                         <n-progress 
                           type="line" 
-                          :percentage="(item as DetailItem).skill.proficiency" 
+                          :percentage="animatedProficiency" 
                           :height="8" 
                           color="#2dd4bf" 
                           rail-color="rgba(255, 255, 255, 0.1)"

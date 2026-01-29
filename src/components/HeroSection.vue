@@ -5,6 +5,13 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const containerRef = ref<HTMLElement | null>(null)
 const mousePosition = ref({ x: 0, y: 0 })
 
+// Animation Refs
+const yearsCount = ref(0)
+const projectsCount = ref(0)
+const clientsCount = ref(0)
+const typedText = ref('')
+const fullText = "AI & Blockchain Engineer"
+
 const handleMouseMove = (event: MouseEvent) => {
   if (containerRef.value) {
     const rect = containerRef.value.getBoundingClientRect()
@@ -15,8 +22,49 @@ const handleMouseMove = (event: MouseEvent) => {
   }
 }
 
+const animateCounter = (target: number, duration: number, updateFn: (val: number) => void) => {
+  const start = 0
+  const startTime = performance.now()
+  
+  const step = (currentTime: number) => {
+    const elapsed = currentTime - startTime
+    const progress = Math.min(elapsed / duration, 1)
+    
+    // Ease out quart
+    const ease = 1 - Math.pow(1 - progress, 4)
+    
+    updateFn(Math.floor(start + (target - start) * ease))
+    
+    if (progress < 1) {
+      requestAnimationFrame(step)
+    }
+  }
+  requestAnimationFrame(step)
+}
+
+const startTyping = () => {
+  let i = 0
+  const speed = 100
+  const typeWriter = () => {
+    if (i < fullText.length) {
+      typedText.value += fullText.charAt(i)
+      i++
+      setTimeout(typeWriter, speed)
+    }
+  }
+  typeWriter()
+}
+
 onMounted(() => {
   window.addEventListener('mousemove', handleMouseMove)
+  
+  // Start Animations after a slight delay
+  setTimeout(() => {
+    animateCounter(5, 2000, (val) => yearsCount.value = val)
+    animateCounter(50, 2500, (val) => projectsCount.value = val)
+    animateCounter(20, 2200, (val) => clientsCount.value = val)
+    startTyping()
+  }, 500)
 })
 
 onUnmounted(() => {
@@ -59,7 +107,8 @@ onUnmounted(() => {
         </h1>
         
         <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0 font-light" data-aos="fade-up" data-aos-delay="200">
-          <span class="text-teal-400 font-semibold">AI & Blockchain Engineer</span> skilled in <span class="text-blue-400 font-semibold">Crypto, Smart Contracts, & Fullstack Development</span>.
+          <span class="text-teal-400 font-semibold min-h-[1.5em] inline-block">{{ typedText }}<span class="animate-pulse">|</span></span> 
+          skilled in <span class="text-blue-400 font-semibold">Crypto, Smart Contracts, & Fullstack Development</span>.
         </p>
         
         <div class="flex flex-wrap gap-4 justify-center md:justify-start" data-aos="fade-up" data-aos-delay="300">
@@ -89,17 +138,17 @@ onUnmounted(() => {
         <!-- Stats / Social Proof -->
         <div class="mt-12 flex items-center justify-center md:justify-start gap-8 opacity-80" data-aos="fade-up" data-aos-delay="400">
             <div class="text-center md:text-left">
-                <h3 class="text-3xl font-bold text-white">5+</h3>
+                <h3 class="text-3xl font-bold text-white">{{ yearsCount }}+</h3>
                 <p class="text-sm text-gray-400">Years Exp.</p>
             </div>
              <div class="w-px h-10 bg-gray-700"></div>
              <div class="text-center md:text-left">
-                <h3 class="text-3xl font-bold text-white">50+</h3>
+                <h3 class="text-3xl font-bold text-white">{{ projectsCount }}+</h3>
                 <p class="text-sm text-gray-400">Projects</p>
             </div>
              <div class="w-px h-10 bg-gray-700"></div>
              <div class="text-center md:text-left">
-                <h3 class="text-3xl font-bold text-white">20+</h3>
+                <h3 class="text-3xl font-bold text-white">{{ clientsCount }}+</h3>
                 <p class="text-sm text-gray-400">Clients</p>
             </div>
         </div>
