@@ -53,15 +53,9 @@ onMounted(async () => {
         duration: 1.2,
         ease: 'power2.inOut'
       })
-      // 2. Text flows in (Standard fade up)
-      .from(containerRef.value!.querySelectorAll('.char'), {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.04,
-        ease: 'power2.out'
-      }, "-=0.8")
-      // 3. Bloom gently pop
+      // Text animation removed to guarantee visibility
+      
+      // 2. Bloom gently pop
       .to(leafRef.value, {
         scale: 1,
         opacity: 1,
