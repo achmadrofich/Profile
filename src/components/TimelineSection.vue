@@ -14,41 +14,43 @@ import { NTimeline, NTimelineItem } from 'naive-ui'
       </div>
 
       <n-timeline size="large">
-        <n-timeline-item
-          type="success"
-          class="mb-8"
-        >
+        <n-timeline-item type="success" class="mb-8">
           <template #header>
-            <span class="text-xl font-bold text-white" data-aos="fade-left">Senior Frontend Developer</span>
+            <span class="text-xl font-bold text-white" data-aos="fade-left">AI & Fullstack Freelancer</span>
           </template>
-          <div class="text-teal-400 font-mono text-sm mb-2" data-aos="fade-left" data-aos-delay="100">2023 - Present | Tech Solutions Inc.</div>
+          <div class="text-teal-400 font-mono text-sm mb-2" data-aos="fade-left" data-aos-delay="100">2020 - Present | Freelance</div>
           <p class="text-gray-400 mt-2 leading-relaxed max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-            Leading the frontend team, architecting React applications, and improving performance by 40%. Implemented CI/CD pipelines and mentored junior developers.
+            Developing applications using Laravel, Vue.js. Integrating Solana blockchain for NFT & GameFi. Using AI tools to optimize coding workflows.
           </p>
         </n-timeline-item>
         
-        <n-timeline-item
-          type="info"
-          class="mb-8"
-        >
+        <n-timeline-item type="info" class="mb-8">
           <template #header>
-             <span class="text-xl font-bold text-white" data-aos="fade-left">Full Stack Developer</span>
+             <span class="text-xl font-bold text-white" data-aos="fade-left">Crypto Analyst & Manager</span>
           </template>
-          <div class="text-blue-400 font-mono text-sm mb-2" data-aos="fade-left" data-aos-delay="100">2021 - 2023 | Digital Agency</div>
+          <div class="text-blue-400 font-mono text-sm mb-2" data-aos="fade-left" data-aos-delay="100">2020 - Present | Binance Square & BingX</div>
            <p class="text-gray-400 mt-2 leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-            Built responsive websites and internal tools using Vue.js and Laravel. Integrated payment gateways and optimized database queries.
+            Managing 3,000+ member crypto community. Achieved Top 3 BingX Global Leaderboard. Writing educational crypto analysis.
+          </p>
+        </n-timeline-item>
+
+        <n-timeline-item type="warning" class="mb-8">
+          <template #header>
+             <span class="text-xl font-bold text-white" data-aos="fade-left">Brand Owner</span>
+          </template>
+          <div class="text-yellow-500 font-mono text-sm mb-2" data-aos="fade-left" data-aos-delay="100">2018 - Present | Shopee Store</div>
+           <p class="text-gray-400 mt-2 leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+            Managed 3 Shopee stores. Focused on digital branding, marketing, and content creation.
           </p>
         </n-timeline-item>
         
-        <n-timeline-item
-          type="warning"
-        >
+        <n-timeline-item type="error">
           <template #header>
-             <span class="text-xl font-bold text-white" data-aos="fade-left">B.Tech in Computer Science</span>
+             <span class="text-xl font-bold text-white" data-aos="fade-left">Bachelor of Informatics</span>
           </template>
-          <div class="text-yellow-500 font-mono text-sm mb-2" data-aos="fade-left" data-aos-delay="100">2017 - 2021 | University of Technology</div>
+          <div class="text-gray-400 font-mono text-sm mb-2" data-aos="fade-left" data-aos-delay="100">2016 - 2022 | Univ. Muhammadiyah Sidoarjo</div>
            <p class="text-gray-400 mt-2 leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-            Graduated with honors (3.8 GPA). Active member of the coding club and organized 3 hackathons.
+            GPA: 3.30. Focused on software engineering and community leadership.
           </p>
         </n-timeline-item>
       </n-timeline>

@@ -7,34 +7,35 @@ const activeTab = ref('all')
 const projects = [
   {
     id: 1,
-    title: 'Portfolio Website',
-    description: 'A personal portfolio website built with Vue 3 and Naive UI.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop',
-    tags: ['Vue 3', 'Naive UI', 'Tailwind'],
-    category: 'frontend'
+    title: 'My Web Portfolio',
+    description: 'Personal portfolio website showcasing my skills and projects in AI & Blockchain.',
+    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=800&auto=format&fit=crop',
+    tags: ['Vue.js', 'Vercel', 'Tailwind'],
+    category: 'frontend',
+    link: 'https://rexweb3.vercel.app/'
   },
   {
     id: 2,
-    title: 'E-commerce Dashboard',
-    description: 'Admin dashboard for managing products and orders.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    category: 'fullstack'
+    title: 'Web3 Wallet Auth',
+    description: 'Backend services to interact with smart contracts and handle transaction lifecycles.',
+    image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=800&auto=format&fit=crop',
+    tags: ['Backend', 'Web3', 'EVM'],
+    category: 'blockchain'
   },
   {
     id: 3,
-    title: 'Weather App',
-    description: 'Real-time weather application using OpenWeatherMap API.',
-    image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=800&auto=format&fit=crop',
-    tags: ['JavaScript', 'API'],
-    category: 'frontend'
+    title: 'Smart Contract Interaction',
+    description: 'Implemented read/write operations via ABI and gas awareness mechanisms.',
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop',
+    tags: ['Smart Contracts', 'ABI', 'Security'],
+    category: 'blockchain'
   },
   {
     id: 4,
-    title: 'Task Manager API',
-    description: 'RESTful API for task management with authentication.',
-    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800&auto=format&fit=crop',
-    tags: ['Express', 'PostgreSQL'],
+    title: 'Blockchain Event Indexer',
+    description: 'Listener for on-chain events normalizing data into structured SQL format.',
+    image: 'https://images.unsplash.com/photo-1644361566696-3d442b5b482a?q=80&w=800&auto=format&fit=crop',
+    tags: ['SQL', 'Indexer', 'Analytics'],
     category: 'backend'
   }
 ]
@@ -58,9 +59,9 @@ const filteredProjects = computed(() => {
       
       <n-tabs v-model:value="activeTab" type="segment" animated class="mb-16 max-w-md mx-auto" data-aos="fade-up" data-aos-delay="100">
         <n-tab-pane name="all" tab="All" />
-        <n-tab-pane name="frontend" tab="Frontend" />
+        <n-tab-pane name="blockchain" tab="Blockchain" />
         <n-tab-pane name="backend" tab="Backend" />
-        <n-tab-pane name="fullstack" tab="Full Stack" />
+        <n-tab-pane name="frontend" tab="Frontend" />
       </n-tabs>
 
       <n-grid x-gap="32" y-gap="32" cols="1 m:2 l:3" responsive="screen">

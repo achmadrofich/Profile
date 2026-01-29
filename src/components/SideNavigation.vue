@@ -65,7 +65,7 @@ onUnmounted(() => {
   <nav class="fixed left-0 top-0 h-full w-20 hidden md:flex flex-col items-center justify-between py-8 bg-dark/80 backdrop-blur-xl border-r border-teal-500/10 z-50 transition-all duration-300">
     <!-- Logo -->
     <div class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500 cursor-pointer hover:scale-110 transition-transform duration-300" @click="scrollTo('hero')">
-      DP
+      AR
     </div>
 
     <!-- Navigation Links -->

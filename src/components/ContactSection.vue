@@ -21,7 +21,19 @@ const handleSubmit = (e: Event) => {
   <section id="contact" class="py-24 px-6 md:px-12 bg-dark relative">
     <div class="max-w-4xl mx-auto text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Get In Touch</h2>
-      <p class="text-gray-400">Feel free to reach out for collaborations or just a friendly hello!</p>
+      <p class="text-gray-400 mb-8">Feel free to reach out for collaborations or just a friendly hello!</p>
+      
+      <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+        <div class="flex items-center gap-2">
+            <span class="text-teal-400">📧</span> abdul.rochimx@gmail.com
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="text-teal-400">📞</span> +62-8777-964-864
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="text-teal-400">📍</span> Sidoarjo, East Java
+        </div>
+      </div>
     </div>
 
     <div class="max-w-2xl mx-auto bg-gray-900/50 p-8 rounded-2xl border border-gray-800">
@@ -53,7 +65,7 @@ const handleSubmit = (e: Event) => {
     </div>
 
     <footer class="mt-20 text-center text-gray-500 border-t border-gray-800 pt-8">
-       <p>&copy; {{ new Date().getFullYear() }} Deepak Clone. Built with Vue 3 & Naive UI.</p>
+       <p>&copy; {{ new Date().getFullYear() }} Abdul Rochim. Built with Vue 3 & Naive UI.</p>
        <div class="flex justify-center gap-6 mt-4">
           <a href="#" class="hover:text-teal-400 transition-colors">GitHub</a>
           <a href="#" class="hover:text-teal-400 transition-colors">LinkedIn</a>

@@ -9,13 +9,15 @@
         </div>
         
         <p class="text-gray-300 text-lg leading-relaxed mb-6">
-          Hello! I'm <span class="text-teal-400 font-semibold">Deepak Prajapati</span>, a passionate software developer based in India. 
-          I specialize in building high-quality web applications using modern technologies. 
-          With a strong foundation in both frontend and backend development, I enjoy creating seamless user experiences.
+          Hello! I'm <span class="text-teal-400 font-semibold">Abdul Rochim</span>, an Informatics graduate and blockchain enthusiast having versatile experience in <span class="text-blue-400">crypto analysis, AI integration, and fullstack engineering</span>.
         </p>
         
+        <p class="text-gray-400 leading-relaxed mb-4">
+          I specialize in building blockchain projects, managing crypto communities, and developing web & mobile applications. I am recognized as a Top 3 Leaderboard Trader at BingX and have built a community of over 3,000 members.
+        </p>
+
         <p class="text-gray-400 leading-relaxed">
-          When I'm not coding, you can find me exploring new technologies, contributing to open source, or solving algorithmic problems.
+           Proficient in PHP (Laravel), Vue.js, AI tools (TensorFlow, GitHub Copilot), and creative digital content. I combine technical coding skills with creative design to build unique digital brands.
         </p>
       </div>
 

@@ -54,12 +54,12 @@ onUnmounted(() => {
         
         <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tighter leading-tight" data-aos="fade-up" data-aos-delay="100">
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-200 via-teal-400 to-blue-500 animate-gradient bg-300%">
-            Achmad Rofich
+            Abdul Rochim
           </span>
         </h1>
         
         <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0 font-light" data-aos="fade-up" data-aos-delay="200">
-          Software Developer building <span class="text-teal-400 font-semibold">scalable web apps</span> and <span class="text-blue-400 font-semibold">seamless user experiences</span>.
+          <span class="text-teal-400 font-semibold">AI & Blockchain Engineer</span> skilled in <span class="text-blue-400 font-semibold">Crypto, Smart Contracts, & Fullstack Development</span>.
         </p>
         
         <div class="flex flex-wrap gap-4 justify-center md:justify-start" data-aos="fade-up" data-aos-delay="300">
@@ -71,7 +71,7 @@ onUnmounted(() => {
           </n-button>
         </div>
         
-        <!-- Stats / Social Proof (Optional Addition to match 'bento' feel) -->
+        <!-- Stats / Social Proof -->
         <div class="mt-12 flex items-center justify-center md:justify-start gap-8 opacity-80" data-aos="fade-up" data-aos-delay="400">
             <div class="text-center md:text-left">
                 <h3 class="text-3xl font-bold text-white">5+</h3>
@@ -85,7 +85,7 @@ onUnmounted(() => {
              <div class="w-px h-10 bg-gray-700"></div>
              <div class="text-center md:text-left">
                 <h3 class="text-3xl font-bold text-white">20+</h3>
-                <p class="text-sm text-gray-400">Happy Clients</p>
+                <p class="text-sm text-gray-400">Clients</p>
             </div>
         </div>
       </div>
@@ -105,8 +105,8 @@ onUnmounted(() => {
                      <!-- Name Overlay on Image (Like Reference) -->
                      <div class="absolute bottom-6 left-6 z-20">
                          <div class="text-teal-400 text-sm font-bold tracking-widest mb-1 uppercase">Portfolio</div>
-                         <h2 class="text-white text-3xl font-bold uppercase tracking-tight">Achmad Rofich</h2>
-                         <p class="text-gray-300 text-sm mt-2 opacity-80">Software Developer</p>
+                         <h2 class="text-white text-3xl font-bold uppercase tracking-tight">Abdul Rochim</h2>
+                         <p class="text-gray-300 text-sm mt-2 opacity-80">AI & Blockchain Engineer</p>
                      </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@ onUnmounted(() => {
                      </div>
                      <div>
                          <div class="text-xs text-gray-400">Location</div>
-                         <div class="text-sm font-bold text-white">Indonesia</div>
+                         <div class="text-sm font-bold text-white">East Java, ID</div>
                      </div>
                  </div>
             </div>
