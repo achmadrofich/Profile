@@ -70,7 +70,7 @@ const rawSkills: Skill[] = [
   { 
     type: 'skill', 
     name: 'Web3 & Blockchain', 
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg', 
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ethereum/ethereum-original.svg', 
     proficiency: 90, 
     experience: '3+ Years', 
     description: 'Smart Contract development (Solidity), dApp integration (Wagmi/Ethers), and EVM architecture.', 
@@ -79,7 +79,7 @@ const rawSkills: Skill[] = [
       { name: 'Solidity', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
       { name: 'Hardhat', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hardhat/hardhat-original.svg' },
       { name: 'Ethers.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }, 
-      { name: 'IPFS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/filezilla/filezilla-original.svg' } // Using filezilla as placeholder or use generic
+      { name: 'Metamask', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/metamask/metamask-original.svg' }
     ]
   },
   { 
@@ -229,7 +229,12 @@ const toggleSkill = (skill: Skill) => {
               @click="toggleSkill(item as Skill)"
             >
               <div class="flex flex-col items-center justify-center gap-6 py-6">
-                <img :src="item.icon" :alt="item.name" class="w-16 h-16 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg" />
+                <img 
+                  :src="item.icon" 
+                  :alt="item.name" 
+                  class="w-16 h-16 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg" 
+                  :class="{ 'invert brightness-200': ['Next.js Stack', 'Express'].includes(item.name) }"
+                />
                 <span class="font-semibold text-gray-200 text-lg group-hover:text-teal-400 transition-colors">{{ item.name }}</span>
               </div>
               <div v-if="selectedSkillName !== item.name" class="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-2">
