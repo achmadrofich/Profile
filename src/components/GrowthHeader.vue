@@ -35,6 +35,10 @@ onMounted(async () => {
       }
     })
 
+    // Init chars - ALWAYS VISIBLE (opacity 1)
+    // Only animate Y position to prevent "invisible text" bugs
+    gsap.set(containerRef.value!.querySelectorAll('.char'), { y: 15 })
+    
     // Vine Setup
     const length = pathRef.value!.getTotalLength() + 5 // Extra buffer
     gsap.set(pathRef.value, { strokeDasharray: length, strokeDashoffset: length, opacity: 1 })
@@ -44,21 +48,20 @@ onMounted(async () => {
 
     // Timeline
     tl
-      // 1. Vine draws naturally (Organic flow)
+      // 1. Vine draws naturally
       .to(pathRef.value, {
         strokeDashoffset: 0,
         duration: 1.2,
-        ease: 'power2.inOut' // Smooth accel/decel
+        ease: 'power2.inOut'
       })
-      // 2. Text flows in
-      .from(containerRef.value!.querySelectorAll('.char'), {
-        y: 15,
-        opacity: 0,
+      // 2. Text slides up (No opacity fade - guarantees visibility)
+      .to(containerRef.value!.querySelectorAll('.char'), {
+        y: 0,
         duration: 0.8,
         stagger: 0.04,
         ease: 'power2.out'
       }, "-=0.8")
-      // 3. Bloom gently gently pop
+      // 3. Bloom gently pop
       .to(leafRef.value, {
         scale: 1,
         opacity: 1,
@@ -122,7 +125,7 @@ onUnmounted(() => {
       </g>
     </svg>
 
-    <h2 class="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-tight flex gap-3 flex-wrap justify-center">
+    <h2 class="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-tight flex gap-3 flex-wrap justify-center overflow-hidden">
        <span v-for="(word, i) in text.split(' ')" :key="i" class="inline-block whitespace-nowrap">
           <span 
             v-for="(char, j) in word" 
