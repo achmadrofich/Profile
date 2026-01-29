@@ -54,7 +54,7 @@ onUnmounted(() => {
         
         <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tighter leading-tight" data-aos="fade-up" data-aos-delay="100">
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-200 via-teal-400 to-blue-500 animate-gradient bg-300%">
-            Deepak Prajapati
+            Achmad Rofich
           </span>
         </h1>
         
@@ -92,7 +92,7 @@ onUnmounted(() => {
 
       <!-- Image Column -->
       <div class="order-1 md:order-2 flex justify-center md:justify-end relative" data-aos="fade-left" data-aos-delay="200">
-        <div class="relative w-full max-w-md">
+        <div class="relative w-full max-w-sm md:max-w-md">
             <!-- Glassmorphic Card Background -->
             <div class="absolute inset-0 bg-gradient-to-br from-gray-800/40 to-black/40 backdrop-blur-xl rounded-3xl border border-white/10 transform rotate-3 scale-105 z-0"></div>
             
@@ -105,7 +105,7 @@ onUnmounted(() => {
                      <!-- Name Overlay on Image (Like Reference) -->
                      <div class="absolute bottom-6 left-6 z-20">
                          <div class="text-teal-400 text-sm font-bold tracking-widest mb-1 uppercase">Portfolio</div>
-                         <h2 class="text-white text-3xl font-bold uppercase tracking-tight">Deepak Prajapati</h2>
+                         <h2 class="text-white text-3xl font-bold uppercase tracking-tight">Achmad Rofich</h2>
                          <p class="text-gray-300 text-sm mt-2 opacity-80">Software Developer</p>
                      </div>
                 </div>

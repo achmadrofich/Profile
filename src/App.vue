@@ -31,7 +31,7 @@ const themeOverrides = {
         
         <div class="bg-dark min-h-screen text-white font-sans selection:bg-teal-500/30 font-inter">
           <SideNavigation />
-          <main class="relative z-10 w-full overflow-hidden md:pl-20"> <!-- Padding left to accommodate sidebar -->
+          <main class="relative z-10 w-full overflow-hidden md:pl-20 pb-24 md:pb-0"> <!-- Padding left for sidebar, Padding bottom for mobile nav -->
             <HeroSection />
             <AboutSection />
             <SkillsSection />
