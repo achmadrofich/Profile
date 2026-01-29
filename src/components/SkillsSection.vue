@@ -70,7 +70,7 @@ const rawSkills: Skill[] = [
   { 
     type: 'skill', 
     name: 'Web3 & Blockchain', 
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ethereum/ethereum-original.svg', 
+    icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/ethereum/ethereum-original.svg', 
     proficiency: 90, 
     experience: '3+ Years', 
     description: 'Smart Contract development (Solidity), dApp integration (Wagmi/Ethers), and EVM architecture.', 
