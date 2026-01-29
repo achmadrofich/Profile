@@ -35,9 +35,8 @@ onMounted(async () => {
       }
     })
 
-    // Init chars - ALWAYS VISIBLE (opacity 1)
-    // Only animate Y position to prevent "invisible text" bugs
-    gsap.set(containerRef.value!.querySelectorAll('.char'), { y: 15 })
+    // Init chars: We rely on the .from() tween below to set initial opacity 0.
+    // No manual gsap.set here to avoid conflicts.
     
     // Vine Setup
     const length = pathRef.value!.getTotalLength() + 5 // Extra buffer
@@ -54,9 +53,10 @@ onMounted(async () => {
         duration: 1.2,
         ease: 'power2.inOut'
       })
-      // 2. Text slides up (No opacity fade - guarantees visibility)
-      .to(containerRef.value!.querySelectorAll('.char'), {
-        y: 0,
+      // 2. Text flows in (Standard fade up)
+      .from(containerRef.value!.querySelectorAll('.char'), {
+        y: 20,
+        opacity: 0,
         duration: 0.8,
         stagger: 0.04,
         ease: 'power2.out'
@@ -125,7 +125,7 @@ onUnmounted(() => {
       </g>
     </svg>
 
-    <h2 class="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-tight flex gap-3 flex-wrap justify-center overflow-hidden">
+    <h2 class="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-tight flex gap-3 flex-wrap justify-center">
        <span v-for="(word, i) in text.split(' ')" :key="i" class="inline-block whitespace-nowrap">
           <span 
             v-for="(char, j) in word" 
