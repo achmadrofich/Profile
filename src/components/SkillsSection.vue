@@ -70,16 +70,16 @@ const rawSkills: Skill[] = [
   { 
     type: 'skill', 
     name: 'Web3 & Blockchain', 
-    icon: 'https://www.vectorlogo.zone/logos/ethereum/ethereum-icon.svg', 
+    icon: 'https://cdn.worldvectorlogo.com/logos/ethereum.svg', 
     proficiency: 90, 
     experience: '3+ Years', 
     description: 'Smart Contract development (Solidity), dApp integration (Wagmi/Ethers), and EVM architecture.', 
     projects: ['Web3 Wallet', 'Token Staking'],
     techStack: [
-      { name: 'Solidity', icon: 'https://www.vectorlogo.zone/logos/soliditylang/soliditylang-icon.svg' },
+      { name: 'Solidity', icon: 'https://cdn.worldvectorlogo.com/logos/solidity.svg' },
       { name: 'Hardhat', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hardhat/hardhat-original.svg' },
       { name: 'Ethers.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }, 
-      { name: 'Metamask', icon: 'https://www.vectorlogo.zone/logos/metamaskio/metamaskio-icon.svg' }
+      { name: 'Metamask', icon: 'https://cdn.worldvectorlogo.com/logos/metamask.svg' }
     ]
   },
   { 
