@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { NForm, NFormItem, NInput, NButton, useMessage } from 'naive-ui'
+import GrowthHeader from './GrowthHeader.vue'
 
 const message = useMessage()
 const formValue = ref({
@@ -20,7 +21,9 @@ const handleSubmit = (e: Event) => {
 <template>
   <section id="contact" class="py-24 px-6 md:px-12 bg-dark relative">
     <div class="max-w-4xl mx-auto text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Get In Touch</h2>
+      <div class="mb-4 flex justify-center">
+        <GrowthHeader text="Get In Touch" highlight="Touch" />
+      </div>
       <p class="text-gray-400 mb-8">Feel free to reach out for collaborations or just a friendly hello!</p>
       
       <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">

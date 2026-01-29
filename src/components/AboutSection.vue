@@ -3,9 +3,9 @@
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
       <!-- Text Content -->
       <div>
-        <div class="flex items-center gap-4 mb-6">
-          <div class="h-1 w-12 bg-teal-400"></div>
-          <h2 class="text-3xl md:text-4xl font-bold text-white">About Me</h2>
+        <!-- Section Title -->
+        <div class="text-center mb-16 flex justify-center">
+          <GrowthHeader text="About Me" highlight="Me" />
         </div>
         
         <p class="text-gray-300 text-lg leading-relaxed mb-6">

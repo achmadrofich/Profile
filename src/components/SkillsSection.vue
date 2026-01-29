@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { NCard, NProgress } from 'naive-ui'
 import { CloseCircleOutline } from '@vicons/ionicons5'
+import GrowthHeader from './GrowthHeader.vue'
 
 interface Skill {
   type: 'skill'
@@ -208,8 +209,8 @@ const toggleSkill = (skill: Skill) => {
 <template>
   <section id="skills" class="py-24 px-6 md:px-12 bg-black/20 relative" data-aos="fade-up">
     <div class="max-w-6xl mx-auto">
-      <div class="flex items-center gap-4 mb-16 justify-center" data-aos="zoom-in">
-         <h2 class="text-3xl md:text-5xl font-bold text-white text-center tracking-tight">My <span class="text-teal-400">Skills</span></h2>
+      <div class="flex items-center gap-4 mb-16 justify-center">
+         <GrowthHeader text="My Skills" highlight="Skills" />
       </div>
 
       <!-- Custom Grid Implementation for easier col-span control -->

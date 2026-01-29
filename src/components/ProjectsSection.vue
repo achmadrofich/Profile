@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { NCard, NTabs, NTabPane, NGrid, NGridItem, NTag, NButton, NTooltip } from 'naive-ui'
 import { LogoGithub, GlobeOutline } from '@vicons/ionicons5'
+import GrowthHeader from './GrowthHeader.vue'
 
 const activeTab = ref('all')
 
@@ -70,9 +71,9 @@ const filteredProjects = computed(() => {
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/5 blur-[120px] rounded-full -z-0 pointer-events-none"></div>
 
     <div class="max-w-6xl mx-auto relative z-10">
-      <h2 class="text-3xl md:text-5xl font-bold text-white mb-12 text-center tracking-tight" data-aos="fade-down">
-        Featured <span class="text-teal-400">Projects</span>
-      </h2>
+      <div class="mb-12 text-center flex justify-center">
+        <GrowthHeader text="Featured Projects" highlight="Projects" />
+      </div>
       
       <n-tabs v-model:value="activeTab" type="segment" animated class="mb-16 max-w-md mx-auto" data-aos="fade-up" data-aos-delay="100">
         <n-tab-pane name="all" tab="All" />

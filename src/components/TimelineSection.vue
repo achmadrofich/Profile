@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NTimeline, NTimelineItem, NTag } from 'naive-ui'
 import { BriefcaseOutline, SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline } from '@vicons/ionicons5'
+import GrowthHeader from './GrowthHeader.vue'
 
 const events = [
   {
@@ -52,9 +53,8 @@ const events = [
     <div class="absolute left-10 md:left-1/2 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-teal-500/10 to-transparent"></div>
 
     <div class="max-w-4xl mx-auto relative z-10">
-      <div class="flex flex-col items-center mb-20" data-aos="zoom-in">
-         <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight text-center">Journey & <span class="text-teal-400">Experience</span></h2>
-         <div class="h-1 w-24 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full mt-6"></div>
+      <div class="flex flex-col items-center mb-20 text-center">
+         <GrowthHeader text="Journey & Experience" highlight="Experience" />
       </div>
 
       <n-timeline size="large">
