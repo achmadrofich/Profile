@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { NCard, NProgress } from 'naive-ui'
 import { CloseCircleOutline } from '@vicons/ionicons5'
 import GrowthHeader from './GrowthHeader.vue'
@@ -20,7 +20,7 @@ interface DetailItem {
   skill: Skill
 }
 
-type GridItem = Skill | DetailItem
+
 
 const rawSkills: Skill[] = [
   { 
@@ -185,13 +185,15 @@ const displayList = computed(() => {
   // Calculate where to insert the detail row (end of the current row)
   const currentRowEnd = Math.ceil((index + 1) / cols.value) * cols.value
   
-  const width = cols.value // span full width
+   
   const before = rawSkills.slice(0, currentRowEnd)
   const after = rawSkills.slice(currentRowEnd)
 
+  if (!rawSkills[index]) return rawSkills
+
   const detailItem: DetailItem = {
     type: 'detail',
-    skill: rawSkills[index]
+    skill: rawSkills[index]!
   }
 
   return [...before, detailItem, ...after]

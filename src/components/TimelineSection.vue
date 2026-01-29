@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NTimeline, NTimelineItem, NTag } from 'naive-ui'
-import { BriefcaseOutline, SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline } from '@vicons/ionicons5'
+import { SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline } from '@vicons/ionicons5'
 import GrowthHeader from './GrowthHeader.vue'
 
 const events = [
