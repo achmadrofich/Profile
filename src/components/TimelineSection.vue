@@ -133,7 +133,7 @@ onMounted(() => {
   })
   
   // Phase 4: Card Transitions (Fade-in from left)
-  cardRefs.value.forEach((card, index) => {
+  cardRefs.value.forEach((card) => {
     if (!card) return
     
     // Initial state: hidden
@@ -186,7 +186,7 @@ const activateIcon = (icon: HTMLElement, index: number) => {
   
   // Animate icon svg color
   const iconSvg = icon.querySelector('svg')
-  if (iconSvg) {
+  if (iconSvg && events[index]) {
     gsap.to(iconSvg, {
       color: events[index].color,
       duration: 0.4
@@ -349,7 +349,7 @@ onUnmounted(() => {
   border: 2px solid rgba(75, 85, 99, 0.5);
   display: flex;
   align-items: center;
-  justify-center;
+  justify-content: center;
   transition: all 0.3s;
   z-index: 10;
   position: relative;

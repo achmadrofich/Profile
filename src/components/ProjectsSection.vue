@@ -106,8 +106,8 @@ const handleMouseLeave = (cardElement: HTMLElement) => {
           <n-card 
             class="project-card bg-gray-900/40 backdrop-blur-md border border-transparent hover:border-teal-500/50 transition-all duration-500 h-full flex flex-col group overflow-hidden rounded-2xl hover:bg-gray-800/60 hover:shadow-2xl hover:shadow-teal-900/20" 
             content-style="padding: 0;"
-            @mousemove="(e) => handleMouseMove(e, $event.currentTarget as HTMLElement)"
-            @mouseleave="(e) => handleMouseLeave($event.currentTarget as HTMLElement)"
+            @mousemove="(e: MouseEvent) => handleMouseMove(e, (e.currentTarget as HTMLElement))"
+            @mouseleave="handleMouseLeave(($event.currentTarget as HTMLElement))"
           >
             <template #cover>
               <div class="relative overflow-hidden h-52">

@@ -78,31 +78,47 @@ onMounted(async () => {
         duration: 0.2,
         ease: 'power1.out'
       }, "-=0.2")
-      // 3b. Core expands
-      .to(leafRef.value.querySelector('circle'), {
-        scale: 1,
-        duration: 0.3,
-        ease: 'back.out(2)'
-      }, "-=0.1")
-      // 3c. Petals unfold sequentially
-      .to(leafRef.value.querySelectorAll('.petal'), {
-        scaleY: 1,
-        duration: 0.4,
-        stagger: 0.08,
-        ease: 'back.out(1.7)'
-      }, "-=0.2")
-      // 3d. Particles float up
-      .to(leafRef.value.querySelectorAll('.particle'), {
-        opacity: 1,
-        y: -15,
-        duration: 1.5,
-        stagger: 0.2,
-        ease: 'power1.out'
-      }, "-=0.3")
-      .to(leafRef.value.querySelectorAll('.particle'), {
-        opacity: 0,
-        duration: 0.5
-      }, "-=0.5")
+      
+      // 3b-3d: Bloom sequence (only if flower exists)
+      if (leafRef.value) {
+        const bloomCore = leafRef.value.querySelector('circle')
+        const petals = leafRef.value.querySelectorAll('.petal')
+        const particles = leafRef.value.querySelectorAll('.particle')
+        
+        if (bloomCore) {
+          // 3b. Core expands
+          tl.to(bloomCore, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'back.out(2)'
+          }, "-=0.1")
+        }
+        
+        if (petals.length) {
+          // 3c. Petals unfold sequentially
+          tl.to(petals, {
+            scaleY: 1,
+            duration: 0.4,
+            stagger: 0.08,
+            ease: 'back.out(1.7)'
+          }, "-=0.2")
+        }
+        
+        if (particles.length) {
+          // 3d. Particles float up
+          tl.to(particles, {
+            opacity: 1,
+            y: -15,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: 'power1.out'
+          }, "-=0.3")
+          .to(particles, {
+            opacity: 0,
+            duration: 0.5
+          }, "-=0.5")
+        }
+      }
     
     // Subtle breathing glow (continuous)
     gsap.to(leafRef.value, {
