@@ -9,6 +9,7 @@ import TimelineSection from './components/TimelineSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import SideNavigation from './components/SideNavigation.vue'
 import ScrollProgress from './components/ScrollProgress.vue'
+import MagneticCursor from './components/MagneticCursor.vue'
 
 // Custom Theme Overrides to match the design
 const themeOverrides: GlobalThemeOverrides = {
@@ -32,6 +33,7 @@ const themeOverrides: GlobalThemeOverrides = {
         <n-global-style />
         
         <div class="bg-dark min-h-screen text-white font-sans selection:bg-teal-500/30 font-inter">
+          <MagneticCursor />
           <ScrollProgress />
           <SideNavigation />
           <main class="relative z-10 w-full overflow-hidden md:pl-20 pb-24 md:pb-0"> <!-- Padding left for sidebar, Padding bottom for mobile nav -->
