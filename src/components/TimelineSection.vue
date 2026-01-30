@@ -198,24 +198,12 @@ onMounted(() => {
     }
   })
   
-  // Phase 5: Progressive Line Drawing
+  // Phase 5: Progressive Line - Always visible, no scroll animation
   nextTick(() => {
     const lineEl = timelineLineRef.value
     if (lineEl) {
-      // Set initial state via GSAP
-      gsap.set(lineEl, { scaleY: 0, transformOrigin: 'top' })
-      
-      // Animate scaleY on scroll
-      gsap.to(lineEl, {
-        scaleY: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.timeline-wrapper',
-          start: 'top 80%',
-          end: 'bottom 40%',
-          scrub: 1.5
-        }
-      })
+      // Make line always visible at full scale
+      gsap.set(lineEl, { scaleY: 1, transformOrigin: 'top' })
     }
   })
 })
@@ -431,7 +419,7 @@ onUnmounted(() => {
 /* Progressive Vertical Line */
 .timeline-line-progressive {
   position: absolute;
-  left: 40px;
+  left: 48px;
   top: 60px;
   /* height is set dynamically via :style binding */
   width: 3px;
