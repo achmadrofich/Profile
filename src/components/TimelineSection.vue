@@ -446,5 +446,53 @@ onUnmounted(() => {
   .timeline-card {
     margin-left: 80px !important;
   }
+  
+  /* Reduce glow intensity on mobile for performance */
+  .timeline-icon-box.active {
+    box-shadow: 
+      0 0 15px rgba(45, 212, 191, 0.3),
+      0 0 30px rgba(45, 212, 191, 0.15),
+      inset 0 0 15px rgba(45, 212, 191, 0.1);
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 
+        0 0 15px rgba(45, 212, 191, 0.3),
+        0 0 30px rgba(45, 212, 191, 0.15),
+        inset 0 0 15px rgba(45, 212, 191, 0.1);
+    }
+    50% {
+      box-shadow: 
+        0 0 20px rgba(45, 212, 191, 0.4),
+        0 0 40px rgba(45, 212, 191, 0.2),
+        inset 0 0 20px rgba(45, 212, 191, 0.15);
+    }
+  }
+}
+
+/* Performance Optimizations */
+.timeline-icon-box.active {
+  will-change: transform, box-shadow;
+}
+
+.timeline-card {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.timeline-path {
+  will-change: stroke-dashoffset;
+}
+
+/* Tag Hover Enhancement */
+.timeline-card :deep(.n-tag) {
+  transition: all 0.3s ease;
+}
+
+.timeline-card:hover :deep(.n-tag) {
+  opacity: 1 !important;
+  transform: translateY(-2px);
 }
 </style>
+
