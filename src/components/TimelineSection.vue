@@ -22,7 +22,9 @@ const closeMemory = () => {
   showModal.value = false
   selectedEvent.value = null
   // Restore body scroll - NModal sometimes doesn't properly restore this
+  // Naive UI adds overflow:hidden to BOTH html and body elements
   nextTick(() => {
+    document.documentElement.style.overflow = ''
     document.body.style.overflow = ''
     document.body.style.paddingRight = ''
   })
