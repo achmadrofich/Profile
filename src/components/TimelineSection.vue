@@ -52,7 +52,6 @@ const events = [
 ]
 
 // Refs for animation
-const timelinePath = ref<SVGLineElement | null>(null)
 const iconRefs = ref<(HTMLElement | null)[]>([])
 const cardRefs = ref<(HTMLElement | null)[]>([])
 
@@ -65,29 +64,6 @@ const setCardRef = (el: any, index: number) => {
 }
 
 onMounted(() => {
-  if (!timelinePath.value) return
-  
-  // Calculate line length from y2 attribute
-  const lineLength = (events.length - 1) * 280
-  
-  // Setup: Initially hide the line (drawn from top to bottom on scroll)
-  gsap.set(timelinePath.value, {
-    strokeDasharray: lineLength,
-    strokeDashoffset: lineLength
-  })
-  
-  // Phase 2: Line Drawing Animation
-  gsap.to(timelinePath.value, {
-    strokeDashoffset: 0,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.timeline-wrapper',
-      start: 'top 70%',
-      end: 'bottom 40%',
-      scrub: 1.5 // Smooth follow scroll
-    }
-  })
-  
   // Phase 3: Icon Activation (Glow Effect)
   iconRefs.value.forEach((icon, index) => {
     if (!icon) return
@@ -193,35 +169,9 @@ onUnmounted(() => {
          <GrowthHeader text="Journey & Experience" highlight="Experience" />
       </div>
 
-      <!-- Timeline Wrapper -->
+      <!-- Timeline Wrapper with CSS line -->
       <div class="timeline-wrapper relative">
-        <!-- SVG Line Layer - positioned to align with icon centers -->
-        <svg 
-          class="timeline-svg absolute pointer-events-none" 
-          :style="{ left: '40px', top: '60px' }"
-          width="4" 
-          :height="(events.length - 1) * 280"
-        >
-          <!-- Gradient definition -->
-          <defs>
-            <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.8" />
-              <stop offset="50%" stop-color="#2DD4BF" stop-opacity="1" />
-              <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0.8" />
-            </linearGradient>
-          </defs>
-          
-          <!-- Main connecting line -->
-          <line 
-            ref="timelinePath"
-            x1="2" y1="0" 
-            x2="2" :y2="(events.length - 1) * 280"
-            class="timeline-path"
-            stroke="url(#timelineGradient)"
-            stroke-width="3"
-            stroke-linecap="round"
-          />
-        </svg>
+        <!-- Vertical line via CSS ::before pseudo-element -->
 
         <!-- Timeline Items -->
         <div 
@@ -280,26 +230,41 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* Timeline Wrapper */
+/* Timeline Wrapper with connecting line */
 .timeline-wrapper {
   position: relative;
   padding: 2rem 0;
 }
 
-/* SVG Layer */
-.timeline-svg {
-  z-index: 0;
+/* Vertical connecting line using ::before pseudo-element */
+.timeline-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 40px; /* Align with icon center */
+  top: 60px; /* Start from first icon center */
+  bottom: 340px; /* End at last icon center */
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    rgba(45, 212, 191, 0.3) 0%,
+    rgba(45, 212, 191, 0.8) 20%,
+    rgba(45, 212, 191, 1) 50%,
+    rgba(45, 212, 191, 0.8) 80%,
+    rgba(45, 212, 191, 0.3) 100%
+  );
+  border-radius: 2px;
+  box-shadow: 
+    0 0 10px rgba(45, 212, 191, 0.5),
+    0 0 20px rgba(45, 212, 191, 0.3),
+    0 0 30px rgba(45, 212, 191, 0.2);
+  z-index: 1;
 }
 
-.timeline-path {
-  filter: drop-shadow(0 0 6px rgba(45, 212, 191, 0.5));
-  /* No stroke-dasharray by default - line is visible */
-}
-
-.timeline-dot {
-  opacity: 0;
-  transform-origin: center;
-  transition: opacity 0.3s, transform 0.3s;
+/* Responsive: Adjust line position on mobile */
+@media (max-width: 768px) {
+  .timeline-wrapper::before {
+    left: 30px;
+  }
 }
 
 /* Icon Box */
