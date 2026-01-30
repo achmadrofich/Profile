@@ -3,32 +3,39 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { NTag } from 'naive-ui'
 import { SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline } from '@vicons/ionicons5'
 import GrowthHeader from './GrowthHeader.vue'
+import MemoryModal from './MemoryModal.vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Modal state
+const showModal = ref(false)
+const selectedEvent = ref<typeof events[0] | null>(null)
+
+const openMemory = (event: typeof events[0]) => {
+  selectedEvent.value = event
+  showModal.value = true
+}
+
+const closeMemory = () => {
+  showModal.value = false
+  selectedEvent.value = null
+}
+
 const events = [
+  // 1. Education - Start of the journey (2016-2022)
   {
-    type: 'work',
-    title: 'AI & Fullstack Freelancer',
-    time: '2020 - Present',
-    org: 'Freelance & Projects',
-    description: 'Developing high-performance applications using Laravel and Vue.js ecosystem. Integrating Solana blockchain for NFT marketplaces and GameFi projects. Leveraging AI tools (LLMs) to optimize coding workflows and automate systems.',
-    icon: CodeSlashOutline,
-    color: '#2DD4BF',
-    tags: ['Laravel', 'Vue.js', 'Solana', 'AI Agents', 'System Architecture']
+    type: 'education',
+    title: 'Bachelor of Informatics',
+    time: '2016 - 2022',
+    org: 'Univ. Muhammadiyah Sidoarjo',
+    description: 'Graduated with GPA 3.30. Focused on Software Engineering methodologies, Database Systems, and organized multiple tech community events on campus.',
+    icon: SchoolOutline,
+    color: '#9CA3AF',
+    tags: ['Software Engineering', 'Database Design', 'Leadership', 'Algorithms']
   },
-  {
-    type: 'work',
-    title: 'Crypto Analyst & Manager',
-    time: '2020 - Present',
-    org: 'Binance Square & BingX',
-    description: 'Managing a active crypto community of 3,000+ members. Achieved Top 3 Global Leaderboard on BingX. Regularly publishing in-depth technical analysis and market insights regarding DeFi and Web3 trends.',
-    icon: TrendingUpOutline,
-    color: '#60A5FA',
-    tags: ['Community Management', 'Technical Analysis', 'DeFi', 'Trading Strategies']
-  },
+  // 2. First Business Venture (2018-Present)
   {
     type: 'business',
     title: 'Brand Owner',
@@ -39,15 +46,27 @@ const events = [
     color: '#FBBF24',
     tags: ['Digital Marketing', 'Branding', 'E-commerce Management', 'Content Creation']
   },
+  // 3. Crypto Journey (2020-Present)
   {
-    type: 'education',
-    title: 'Bachelor of Informatics',
-    time: '2016 - 2022',
-    org: 'Univ. Muhammadiyah Sidoarjo',
-    description: 'Graduated with GPA 3.30. Focused on Software Engineering methodologies, Database Systems, and organized multiple tech community events on campus.',
-    icon: SchoolOutline,
-    color: '#9CA3AF',
-    tags: ['Software Engineering', 'Database Design', 'Leadership', 'Algorithms']
+    type: 'work',
+    title: 'Crypto Analyst & Manager',
+    time: '2020 - Present',
+    org: 'Binance Square & BingX',
+    description: 'Managing a active crypto community of 3,000+ members. Achieved Top 3 Global Leaderboard on BingX. Regularly publishing in-depth technical analysis and market insights regarding DeFi and Web3 trends.',
+    icon: TrendingUpOutline,
+    color: '#60A5FA',
+    tags: ['Community Management', 'Technical Analysis', 'DeFi', 'Trading Strategies']
+  },
+  // 4. Current Focus - AI & Development (2020-Present)
+  {
+    type: 'work',
+    title: 'AI & Fullstack Freelancer',
+    time: '2020 - Present',
+    org: 'Freelance & Projects',
+    description: 'Developing high-performance applications using Laravel and Vue.js ecosystem. Integrating Solana blockchain for NFT marketplaces and GameFi projects. Leveraging AI tools (LLMs) to optimize coding workflows and automate systems.',
+    icon: CodeSlashOutline,
+    color: '#2DD4BF',
+    tags: ['Laravel', 'Vue.js', 'Solana', 'AI Agents', 'System Architecture']
   }
 ]
 
@@ -189,10 +208,13 @@ onUnmounted(() => {
             <component :is="event.icon" class="w-10 h-10" />
           </div>
 
-          <!-- Content Card (Right side) -->
+          <!-- Content Card (Right side) - Clickable for Memory -->
           <div 
             :ref="el => setCardRef(el, index)"
-            class="timeline-card ml-16 md:ml-32"
+            class="timeline-card ml-16 md:ml-32 cursor-pointer group"
+            @click="openMemory(event)"
+            role="button"
+            :aria-label="`View details for ${event.title}`"
           >
             <!-- Period Label -->
             <span class="timeline-label">
@@ -226,6 +248,13 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+    
+    <!-- Memory Modal -->
+    <MemoryModal 
+      :show="showModal" 
+      :event="selectedEvent" 
+      @close="closeMemory" 
+    />
   </section>
 </template>
 
@@ -334,10 +363,27 @@ onUnmounted(() => {
 }
 
 .timeline-card:hover {
-  border-color: rgba(45, 212, 191, 0.3);
-  background: rgba(31, 41, 55, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(45, 212, 191, 0.4);
+  background: rgba(31, 41, 55, 0.8);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(45, 212, 191, 0.1);
+}
+
+/* Click hint on hover */
+.timeline-card::after {
+  content: 'Click to explore →';
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  color: rgba(45, 212, 191, 0);
+  transition: color 0.3s;
+}
+
+.timeline-card:hover::after {
+  color: rgba(45, 212, 191, 0.6);
 }
 
 /* Period Label */
