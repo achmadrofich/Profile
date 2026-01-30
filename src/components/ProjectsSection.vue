@@ -63,6 +63,25 @@ const filteredProjects = computed(() => {
   if (activeTab.value === 'all') return projects
   return projects.filter(p => p.category === activeTab.value)
 })
+
+// 3D Tilt Effect
+const handleMouseMove = (e: MouseEvent, cardElement: HTMLElement) => {
+  const rect = cardElement.getBoundingClientRect()
+  const x = e.clientX - rect.left
+  const y = e.clientY - rect.top
+  
+  const centerX = rect.width / 2
+  const centerY = rect.height / 2
+  
+  const rotateX = ((y - centerY) / centerY) * -10 // max 10deg
+  const rotateY = ((x - centerX) / centerX) * 10
+  
+  cardElement.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`
+}
+
+const handleMouseLeave = (cardElement: HTMLElement) => {
+  cardElement.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'
+}
 </script>
 
 <template>
@@ -84,7 +103,12 @@ const filteredProjects = computed(() => {
 
       <n-grid x-gap="32" y-gap="32" cols="1 m:2 l:3" responsive="screen">
         <n-grid-item v-for="(project, index) in filteredProjects" :key="project.id" :data-aos="'fade-up'" :data-aos-delay="index * 100">
-          <n-card class="bg-gray-900/40 backdrop-blur-md border border-gray-800 hover:border-teal-500/50 transition-all duration-500 h-full flex flex-col group overflow-hidden rounded-2xl hover:bg-gray-800/60 hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-900/20" content-style="padding: 0;">
+          <n-card 
+            class="project-card bg-gray-900/40 backdrop-blur-md border border-transparent hover:border-teal-500/50 transition-all duration-500 h-full flex flex-col group overflow-hidden rounded-2xl hover:bg-gray-800/60 hover:shadow-2xl hover:shadow-teal-900/20" 
+            content-style="padding: 0;"
+            @mousemove="(e) => handleMouseMove(e, $event.currentTarget as HTMLElement)"
+            @mouseleave="(e) => handleMouseLeave($event.currentTarget as HTMLElement)"
+          >
             <template #cover>
               <div class="relative overflow-hidden h-52">
                  <img :src="project.image" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
@@ -143,5 +167,46 @@ const filteredProjects = computed(() => {
 :deep(.n-tabs-tab--active) {
   color: #2DD4BF;
   font-weight: 600;
+}
+
+/* 3D Card Tilt */
+.project-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, border-color 0.3s;
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 1rem;
+  padding: 2px;
+  background: linear-gradient(
+    45deg, 
+    rgba(45, 212, 191, 0.3), 
+    rgba(20, 184, 166, 0.3),
+    rgba(45, 212, 191, 0.3)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 </style>
