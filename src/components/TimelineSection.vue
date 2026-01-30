@@ -52,10 +52,9 @@ const events = [
 ]
 
 // Refs for animation
-const timelinePath = ref<SVGPathElement | null>(null)
+const timelinePath = ref<SVGLineElement | null>(null)
 const iconRefs = ref<(HTMLElement | null)[]>([])
 const cardRefs = ref<(HTMLElement | null)[]>([])
-const dotRefs = ref<(SVGCircleElement | null)[]>([])
 
 const setIconRef = (el: any, index: number) => {
   iconRefs.value[index] = el
@@ -65,20 +64,16 @@ const setCardRef = (el: any, index: number) => {
   cardRefs.value[index] = el
 }
 
-const setDotRef = (el: any, index: number) => {
-  dotRefs.value[index] = el
-}
-
 onMounted(() => {
   if (!timelinePath.value) return
   
-  // Calculate SVG path length
-  const pathLength = timelinePath.value.getTotalLength()
+  // Calculate line length from y2 attribute
+  const lineLength = (events.length - 1) * 280
   
-  // Setup: Initially hide the line
+  // Setup: Initially hide the line (drawn from top to bottom on scroll)
   gsap.set(timelinePath.value, {
-    strokeDasharray: pathLength,
-    strokeDashoffset: pathLength
+    strokeDasharray: lineLength,
+    strokeDashoffset: lineLength
   })
   
   // Phase 2: Line Drawing Animation
@@ -87,36 +82,10 @@ onMounted(() => {
     ease: 'none',
     scrollTrigger: {
       trigger: '.timeline-wrapper',
-      start: 'top 80%',
-      end: 'bottom 30%',
-      scrub: 1, // Smoothly follow scroll
-      // markers: true, // Debug markers (remove in production)
+      start: 'top 70%',
+      end: 'bottom 40%',
+      scrub: 1.5 // Smooth follow scroll
     }
-  })
-  
-  // Animate dots appearance based on scroll
-  dotRefs.value.forEach((dot, index) => {
-    if (!dot) return
-    
-    ScrollTrigger.create({
-      trigger: iconRefs.value[index],
-      start: 'top 75%',
-      onEnter: () => {
-        gsap.to(dot, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.4,
-          ease: 'back.out(2)'
-        })
-      },
-      onLeaveBack: () => {
-        gsap.to(dot, {
-          opacity: 0,
-          scale: 0,
-          duration: 0.3
-        })
-      }
-    })
   })
   
   // Phase 3: Icon Activation (Glow Effect)
@@ -226,37 +195,31 @@ onUnmounted(() => {
 
       <!-- Timeline Wrapper -->
       <div class="timeline-wrapper relative">
-        <!-- SVG Line Layer -->
-        <svg class="timeline-svg absolute left-0 md:left-12 top-0 h-full pointer-events-none" width="120" :height="events.length * 280">
-          <!-- Main connecting line -->
-          <path 
-            ref="timelinePath"
-            :d="`M60,40 L60,${events.length * 280 - 40}`"
-            class="timeline-path"
-            stroke="url(#timelineGradient)"
-            stroke-width="3"
-            fill="none"
-          />
-          
+        <!-- SVG Line Layer - positioned to align with icon centers -->
+        <svg 
+          class="timeline-svg absolute pointer-events-none" 
+          :style="{ left: '40px', top: '60px' }"
+          width="4" 
+          :height="(events.length - 1) * 280"
+        >
           <!-- Gradient definition -->
           <defs>
             <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.3" />
-              <stop offset="50%" stop-color="#2DD4BF" stop-opacity="0.5" />
-              <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0.3" />
+              <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.8" />
+              <stop offset="50%" stop-color="#2DD4BF" stop-opacity="1" />
+              <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0.8" />
             </linearGradient>
           </defs>
           
-          <!-- Dots at connection points -->
-          <circle 
-            v-for="(event, index) in events"
-            :key="`dot-${index}`"
-            :ref="el => setDotRef(el, index)"
-            :cx="60"
-            :cy="40 + (index * 280)"
-            r="6"
-            class="timeline-dot"
-            :fill="event.color"
+          <!-- Main connecting line -->
+          <line 
+            ref="timelinePath"
+            x1="2" y1="0" 
+            x2="2" :y2="(events.length - 1) * 280"
+            class="timeline-path"
+            stroke="url(#timelineGradient)"
+            stroke-width="3"
+            stroke-linecap="round"
           />
         </svg>
 
@@ -329,9 +292,8 @@ onUnmounted(() => {
 }
 
 .timeline-path {
-  filter: drop-shadow(0 0 4px rgba(45, 212, 191, 0.3));
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
+  filter: drop-shadow(0 0 6px rgba(45, 212, 191, 0.5));
+  /* No stroke-dasharray by default - line is visible */
 }
 
 .timeline-dot {
