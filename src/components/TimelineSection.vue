@@ -40,7 +40,8 @@ const events = [
     description: 'Graduated with GPA 3.30. Focused on Software Engineering methodologies, Database Systems, and organized multiple tech community events on campus.',
     icon: SchoolOutline,
     color: '#9CA3AF',
-    tags: ['Software Engineering', 'Database Design', 'Leadership', 'Algorithms']
+    tags: ['Software Engineering', 'Database Design', 'Leadership', 'Algorithms'],
+    image: '/images/timeline/education.png'
   },
   // 2. First Business Venture (2018-Present)
   {
@@ -51,7 +52,8 @@ const events = [
     description: 'Founder and operator of 3 successful Shopee stores. Specialized in digital branding, social media marketing, and content creation to drive organic traffic and sales growth.',
     icon: StorefrontOutline,
     color: '#FBBF24',
-    tags: ['Digital Marketing', 'Branding', 'E-commerce Management', 'Content Creation']
+    tags: ['Digital Marketing', 'Branding', 'E-commerce Management', 'Content Creation'],
+    image: '/images/timeline/ecommerce.png'
   },
   // 3. Crypto Journey (2020-Present)
   {
@@ -62,7 +64,8 @@ const events = [
     description: 'Managing a active crypto community of 3,000+ members. Achieved Top 3 Global Leaderboard on BingX. Regularly publishing in-depth technical analysis and market insights regarding DeFi and Web3 trends.',
     icon: TrendingUpOutline,
     color: '#60A5FA',
-    tags: ['Community Management', 'Technical Analysis', 'DeFi', 'Trading Strategies']
+    tags: ['Community Management', 'Technical Analysis', 'DeFi', 'Trading Strategies'],
+    image: '/images/timeline/crypto.png'
   },
   // 4. Current Focus - AI & Development (2020-Present)
   {
@@ -73,7 +76,8 @@ const events = [
     description: 'Developing high-performance applications using Laravel and Vue.js ecosystem. Integrating Solana blockchain for NFT marketplaces and GameFi projects. Leveraging AI tools (LLMs) to optimize coding workflows and automate systems.',
     icon: CodeSlashOutline,
     color: '#2DD4BF',
-    tags: ['Laravel', 'Vue.js', 'Solana', 'AI Agents', 'System Architecture']
+    tags: ['Laravel', 'Vue.js', 'Solana', 'AI Agents', 'System Architecture'],
+    image: '/images/timeline/developer.png'
   },
   // 5. Education Platform - Founder & CTO (2024-Present)
   {
@@ -84,7 +88,8 @@ const events = [
     description: 'Leading the development of an AI-powered education platform. Building scalable architecture with Next.js and integrating advanced AI features for personalized learning experiences. Managing technical strategy and product roadmap.',
     icon: RocketOutline,
     color: '#F472B6',
-    tags: ['EdTech', 'AI Integration', 'Next.js', 'Product Leadership', 'Startup']
+    tags: ['EdTech', 'AI Integration', 'Next.js', 'Product Leadership', 'Startup'],
+    image: '/images/timeline/edtech.png'
   },
   // 6. Development Studio - Owner (2023-Present)
   {
@@ -95,7 +100,8 @@ const events = [
     description: 'Running a full-service development studio specializing in web applications, mobile apps, and blockchain solutions. Managing client projects, team coordination, and delivering high-quality digital products for diverse industries.',
     icon: BuildOutline,
     color: '#A78BFA',
-    tags: ['Web Development', 'Mobile Apps', 'Client Services', 'Team Leadership', 'Blockchain']
+    tags: ['Web Development', 'Mobile Apps', 'Client Services', 'Team Leadership', 'Blockchain'],
+    image: '/images/timeline/studio.png'
   }
 ]
 
@@ -272,8 +278,8 @@ onUnmounted(() => {
 
       <!-- Timeline Wrapper with CSS line -->
       <div class="timeline-wrapper relative">
-        <!-- Progressive Vertical Line -->
-        <div ref="timelineLineRef" class="timeline-line-progressive" />
+        <!-- Progressive Vertical Line (only show on 'All' filter) -->
+        <div v-show="activeFilter === 'all'" ref="timelineLineRef" class="timeline-line-progressive" />
 
         <!-- Timeline Items -->
         <TransitionGroup name="timeline-fade" tag="div">
@@ -309,6 +315,15 @@ onUnmounted(() => {
             <div class="mb-4">
               <h3 class="text-2xl font-bold text-white mb-2">{{ event.title }}</h3>
               <span class="text-sm font-medium text-gray-400">{{ event.org }}</span>
+            </div>
+
+            <!-- Hero Image -->
+            <div v-if="event.image" class="mb-4 overflow-hidden rounded-xl">
+              <img 
+                :src="event.image" 
+                :alt="event.title" 
+                class="w-full h-40 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+              />
             </div>
 
             <!-- Description -->
