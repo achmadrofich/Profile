@@ -122,6 +122,14 @@ const filteredEvents = computed(() => {
   return events.filter(e => e.type === activeFilter.value)
 })
 
+// Dynamic line height based on filtered items
+const lineHeight = computed(() => {
+  const itemCount = filteredEvents.value.length
+  // Each item is approximately 350px tall (including image), minus some offset
+  const height = itemCount * 350 - 100
+  return `${Math.max(height, 200)}px`
+})
+
 // Refs for animation
 const iconRefs = ref<(HTMLElement | null)[]>([])
 const cardRefs = ref<(HTMLElement | null)[]>([])
@@ -278,8 +286,8 @@ onUnmounted(() => {
 
       <!-- Timeline Wrapper with CSS line -->
       <div class="timeline-wrapper relative">
-        <!-- Progressive Vertical Line (only show on 'All' filter) -->
-        <div v-show="activeFilter === 'all'" ref="timelineLineRef" class="timeline-line-progressive" />
+        <!-- Progressive Vertical Line (dynamic height based on items) -->
+        <div ref="timelineLineRef" class="timeline-line-progressive" :style="{ height: lineHeight }" />
 
         <!-- Timeline Items -->
         <TransitionGroup name="timeline-fade" tag="div">
@@ -425,7 +433,7 @@ onUnmounted(() => {
   position: absolute;
   left: 40px;
   top: 60px;
-  bottom: 100px;
+  /* height is set dynamically via :style binding */
   width: 3px;
   background: linear-gradient(
     to bottom,
