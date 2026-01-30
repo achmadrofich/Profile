@@ -21,6 +21,11 @@ const openMemory = (event: typeof events[0]) => {
 const closeMemory = () => {
   showModal.value = false
   selectedEvent.value = null
+  // Restore body scroll - NModal sometimes doesn't properly restore this
+  nextTick(() => {
+    document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
+  })
 }
 
 const events = [
