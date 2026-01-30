@@ -410,7 +410,7 @@ onUnmounted(() => {
   position: absolute;
   left: 40px;
   top: 60px;
-  bottom: 340px;
+  bottom: 100px;
   width: 3px;
   background: linear-gradient(
     to bottom,
