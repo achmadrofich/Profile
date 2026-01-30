@@ -70,7 +70,54 @@ const setDotRef = (el: any, index: number) => {
 }
 
 onMounted(() => {
-  // Animation setup will be added in Phase 2
+  if (!timelinePath.value) return
+  
+  // Calculate SVG path length
+  const pathLength = timelinePath.value.getTotalLength()
+  
+  // Setup: Initially hide the line
+  gsap.set(timelinePath.value, {
+    strokeDasharray: pathLength,
+    strokeDashoffset: pathLength
+  })
+  
+  // Phase 2: Line Drawing Animation
+  gsap.to(timelinePath.value, {
+    strokeDashoffset: 0,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.timeline-wrapper',
+      start: 'top 80%',
+      end: 'bottom 30%',
+      scrub: 1, // Smoothly follow scroll
+      // markers: true, // Debug markers (remove in production)
+    }
+  })
+  
+  // Animate dots appearance based on scroll
+  dotRefs.value.forEach((dot, index) => {
+    if (!dot) return
+    
+    ScrollTrigger.create({
+      trigger: iconRefs.value[index],
+      start: 'top 75%',
+      onEnter: () => {
+        gsap.to(dot, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.4,
+          ease: 'back.out(2)'
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(dot, {
+          opacity: 0,
+          scale: 0,
+          duration: 0.3
+        })
+      }
+    })
+  })
 })
 
 onUnmounted(() => {
