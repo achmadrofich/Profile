@@ -272,7 +272,7 @@ onUnmounted(() => {
   width: 80px;
   height: 80px;
   border-radius: 1rem;
-  background: rgba(17, 24, 39, 0.9);
+  background: #111827; /* Solid gray-900 color to hide the line behind */
   border: 2px solid rgba(75, 85, 99, 0.5);
   display: flex;
   align-items: center;
