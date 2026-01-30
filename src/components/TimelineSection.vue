@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { NTag } from 'naive-ui'
-import { SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline } from '@vicons/ionicons5'
+import { SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline, GridOutline, BriefcaseOutline, BusinessOutline } from '@vicons/ionicons5'
 import GrowthHeader from './GrowthHeader.vue'
 import MemoryModal from './MemoryModal.vue'
 import gsap from 'gsap'
@@ -70,9 +70,27 @@ const events = [
   }
 ]
 
+// Filter categories
+const filterCategories = [
+  { id: 'all', label: 'All', icon: GridOutline },
+  { id: 'work', label: 'Work', icon: BriefcaseOutline },
+  { id: 'education', label: 'Education', icon: SchoolOutline },
+  { id: 'business', label: 'Business', icon: BusinessOutline }
+]
+
+// Active filter state
+const activeFilter = ref('all')
+
+// Filtered events based on active filter
+const filteredEvents = computed(() => {
+  if (activeFilter.value === 'all') return events
+  return events.filter(e => e.type === activeFilter.value)
+})
+
 // Refs for animation
 const iconRefs = ref<(HTMLElement | null)[]>([])
 const cardRefs = ref<(HTMLElement | null)[]>([])
+const timelineLineRef = ref<HTMLElement | null>(null)
 
 const setIconRef = (el: any, index: number) => {
   iconRefs.value[index] = el
@@ -136,6 +154,22 @@ onMounted(() => {
       })
     }
   })
+  
+  // Phase 5: Progressive Line Drawing
+  if (timelineLineRef.value) {
+    gsap.set(timelineLineRef.value, { scaleY: 0 })
+    
+    gsap.to(timelineLineRef.value, {
+      scaleY: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.timeline-wrapper',
+        start: 'top 80%',
+        end: 'bottom 40%',
+        scrub: 1.5
+      }
+    })
+  }
 })
 
 // Helper: Activate icon with glow
@@ -188,17 +222,33 @@ onUnmounted(() => {
          <GrowthHeader text="Journey & Experience" highlight="Experience" />
       </div>
 
+      <!-- Filter Pills -->
+      <div class="filter-pills flex flex-wrap justify-center gap-3 mb-12">
+        <button
+          v-for="cat in filterCategories"
+          :key="cat.id"
+          @click="activeFilter = cat.id"
+          class="filter-pill"
+          :class="{ 'active': activeFilter === cat.id }"
+        >
+          <component :is="cat.icon" class="w-4 h-4" />
+          <span>{{ cat.label }}</span>
+        </button>
+      </div>
+
       <!-- Timeline Wrapper with CSS line -->
       <div class="timeline-wrapper relative">
-        <!-- Vertical line via CSS ::before pseudo-element -->
+        <!-- Progressive Vertical Line -->
+        <div ref="timelineLineRef" class="timeline-line-progressive" />
 
         <!-- Timeline Items -->
-        <div 
-          v-for="(event, index) in events" 
-          :key="index"
-          class="timeline-item relative mb-8"
-          :style="{ minHeight: '280px' }"
-        >
+        <TransitionGroup name="timeline-fade" tag="div">
+          <div 
+            v-for="(event, index) in filteredEvents" 
+            :key="event.title"
+            class="timeline-item relative mb-8"
+            :style="{ minHeight: '280px' }"
+          >
           <!-- Icon Box (Left side) -->
           <div 
             :ref="el => setIconRef(el, index)"
@@ -246,6 +296,7 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
+        </TransitionGroup>
       </div>
     </div>
     
@@ -259,27 +310,81 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Filter Pills */
+.filter-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(75, 85, 99, 0.4);
+  color: #9CA3AF;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-pill:hover {
+  border-color: rgba(45, 212, 191, 0.4);
+  color: #D1D5DB;
+  transform: translateY(-2px);
+}
+
+.filter-pill.active {
+  background: rgba(45, 212, 191, 0.15);
+  border-color: rgba(45, 212, 191, 0.6);
+  color: #2DD4BF;
+  box-shadow: 
+    0 0 15px rgba(45, 212, 191, 0.3),
+    inset 0 0 10px rgba(45, 212, 191, 0.1);
+}
+
+.filter-pill.active svg {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* Timeline Transition Animations */
+.timeline-fade-enter-active,
+.timeline-fade-leave-active {
+  transition: all 0.4s ease;
+}
+
+.timeline-fade-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.timeline-fade-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.timeline-fade-move {
+  transition: transform 0.4s ease;
+}
+
 /* Timeline Wrapper with connecting line */
 .timeline-wrapper {
   position: relative;
   padding: 2rem 0;
 }
 
-/* Vertical connecting line using ::before pseudo-element */
-.timeline-wrapper::before {
-  content: '';
+/* Progressive Vertical Line */
+.timeline-line-progressive {
   position: absolute;
-  left: 40px; /* Align with icon center */
-  top: 60px; /* Start from first icon center */
-  bottom: 340px; /* End at last icon center */
+  left: 40px;
+  top: 60px;
+  bottom: 340px;
   width: 3px;
   background: linear-gradient(
     to bottom,
-    rgba(45, 212, 191, 0.3) 0%,
-    rgba(45, 212, 191, 0.8) 20%,
+    rgba(45, 212, 191, 0.2) 0%,
+    rgba(45, 212, 191, 0.6) 10%,
     rgba(45, 212, 191, 1) 50%,
-    rgba(45, 212, 191, 0.8) 80%,
-    rgba(45, 212, 191, 0.3) 100%
+    rgba(45, 212, 191, 0.6) 90%,
+    rgba(45, 212, 191, 0.2) 100%
   );
   border-radius: 2px;
   box-shadow: 
@@ -287,11 +392,18 @@ onUnmounted(() => {
     0 0 20px rgba(45, 212, 191, 0.3),
     0 0 30px rgba(45, 212, 191, 0.2);
   z-index: 1;
+  transform-origin: top;
+  /* Will be animated via GSAP */
+}
+
+/* Remove old ::before line since using div now */
+.timeline-wrapper::before {
+  display: none;
 }
 
 /* Responsive: Adjust line position on mobile */
 @media (max-width: 768px) {
-  .timeline-wrapper::before {
+  .timeline-line-progressive {
     left: 30px;
   }
 }
