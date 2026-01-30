@@ -70,9 +70,9 @@ const handleSubmit = (e: Event) => {
     <footer class="mt-20 text-center text-gray-500 border-t border-gray-800 pt-8">
        <p>&copy; {{ new Date().getFullYear() }} Abdul Rochim. Built with Vue 3 & Naive UI.</p>
        <div class="flex justify-center gap-6 mt-4">
-          <a href="https://github.com/achmadrofich" target="_blank" class="hover:text-teal-400 transition-colors">GitHub</a>
-          <a href="https://linkedin.com/in/achmadrofich" target="_blank" class="hover:text-teal-400 transition-colors">LinkedIn</a>
-          <a href="https://x.com/achmadrofich" target="_blank" class="hover:text-teal-400 transition-colors">Twitter</a>
+          <a href="https://github.com/AbdulRochimDev" target="_blank" class="hover:text-teal-400 transition-colors">GitHub</a>
+          <a href="https://www.linkedin.com/in/abdulrochim-x/" target="_blank" class="hover:text-teal-400 transition-colors">LinkedIn</a>
+          <a href="https://www.facebook.com/AbdulRochim1997" target="_blank" class="hover:text-teal-400 transition-colors">Facebook</a>
        </div>
     </footer>
   </section>

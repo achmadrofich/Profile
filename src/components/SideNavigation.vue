@@ -91,7 +91,7 @@ onUnmounted(() => {
 
     <!-- Socials / Theme Toggle (Placeholder) -->
     <div class="flex flex-col gap-4">
-       <a href="https://github.com/achmadrofich" target="_blank" class="text-gray-500 hover:text-white transition-colors hover:scale-110 duration-200">
+       <a href="https://github.com/AbdulRochimDev" target="_blank" class="text-gray-500 hover:text-white transition-colors hover:scale-110 duration-200">
           <n-icon size="22">
             <LogoGithub />
           </n-icon>
