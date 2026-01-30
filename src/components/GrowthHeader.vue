@@ -43,10 +43,19 @@ onMounted(async () => {
     const length = pathRef.value!.getTotalLength() + 5 // Extra buffer
     gsap.set(pathRef.value, { strokeDasharray: length, strokeDashoffset: length, opacity: 1 })
     
-    // Leaf setup
-    if (leafRef.value) gsap.set(leafRef.value, { scale: 0, opacity: 0, rotation: -15 })
+    // Bloom setup - Multi-stage organic growth
+    if (leafRef.value) {
+      const bloomCore = leafRef.value.querySelector('circle')
+      const petals = leafRef.value.querySelectorAll('.petal')
+      const particles = leafRef.value.querySelectorAll('.particle')
+      
+      gsap.set(leafRef.value, { scale: 0, opacity: 0 })
+      gsap.set(bloomCore, { scale: 0 })
+      gsap.set(petals, { scaleY: 0, transformOrigin: 'center bottom' })
+      gsap.set(particles, { opacity: 0, y: 0 })
+    }
 
-    // Timeline
+    // Timeline - Enhanced 3-stage bloom
     tl
       // 1. Vine draws naturally
       .to(pathRef.value, {
@@ -62,19 +71,42 @@ onMounted(async () => {
         stagger: 0.03,
         ease: 'power2.out'
       }, "-=0.8")
-      // 3. Bloom gently pop
+      // 3a. Seed appears
       .to(leafRef.value, {
         scale: 1,
         opacity: 1,
-        rotation: 0,
-        duration: 0.6,
-        ease: 'back.out(1.5)'
+        duration: 0.2,
+        ease: 'power1.out'
+      }, "-=0.2")
+      // 3b. Core expands
+      .to(leafRef.value.querySelector('circle'), {
+        scale: 1,
+        duration: 0.3,
+        ease: 'back.out(2)'
+      }, "-=0.1")
+      // 3c. Petals unfold sequentially
+      .to(leafRef.value.querySelectorAll('.petal'), {
+        scaleY: 1,
+        duration: 0.4,
+        stagger: 0.08,
+        ease: 'back.out(1.7)'
+      }, "-=0.2")
+      // 3d. Particles float up
+      .to(leafRef.value.querySelectorAll('.particle'), {
+        opacity: 1,
+        y: -15,
+        duration: 1.5,
+        stagger: 0.2,
+        ease: 'power1.out'
       }, "-=0.3")
+      .to(leafRef.value.querySelectorAll('.particle'), {
+        opacity: 0,
+        duration: 0.5
+      }, "-=0.5")
     
-    // Subtle breathing glow
+    // Subtle breathing glow (continuous)
     gsap.to(leafRef.value, {
-        filter: 'drop-shadow(0 0 6px rgba(45,212,191,0.6))',
-        scale: 1.05,
+        filter: 'drop-shadow(0 0 8px rgba(45,212,191,0.7))',
         duration: 2.5,
         repeat: -1,
         yoyo: true,
@@ -117,12 +149,19 @@ onUnmounted(() => {
       
       <!-- Bloom at exact endpoint (300, 24) -->
       <g ref="leafRef" transform="translate(300, 24)">
+         <!-- Core -->
          <circle r="3.5" fill="#5EEAD4" />
-         <!-- Organic Asymmetric Petals -->
-         <path d="M0,0 C2,-5 8,-6 9,0 C7,5 2,4 0,0" fill="#ccfbf1" transform="rotate(-30) translate(2,-2)" />
-         <path d="M0,0 C-3,5 -8,4 -9,0 C-7,-5 -2,-5 0,0" fill="#14b8a6" transform="rotate(-30) translate(-2,2)" />
-         <!-- Particle -->
-         <circle r="1.5" fill="#fff" transform="translate(4, -4)" class="animate-pulse" />
+         
+         <!-- Petals (4 organic asymmetric petals) -->
+         <path class="petal" d="M0,0 C2,-5 8,-6 9,0 C7,5 2,4 0,0" fill="#ccfbf1" transform="rotate(0)" />
+         <path class="petal" d="M0,0 C2,-5 8,-6 9,0 C7,5 2,4 0,0" fill="#99f6e4" transform="rotate(90)" />
+         <path class="petal" d="M0,0 C2,-5 8,-6 9,0 C7,5 2,4 0,0" fill="#5eead4" transform="rotate(180)" />
+         <path class="petal" d="M0,0 C2,-5 8,-6 9,0 C7,5 2,4 0,0" fill="#2dd4bf" transform="rotate(270)" />
+         
+         <!-- Floating Particles (3 pollen dots) -->
+         <circle class="particle" r="1.2" fill="#f0fdfa" transform="translate(-3, 0)" />
+         <circle class="particle" r="1" fill="#f0fdfa" transform="translate(3, 0)" />
+         <circle class="particle" r="1.5" fill="#f0fdfa" transform="translate(0, -3)" />
       </g>
     </svg>
 
