@@ -118,7 +118,58 @@ onMounted(() => {
       }
     })
   })
+  
+  // Phase 3: Icon Activation (Glow Effect)
+  iconRefs.value.forEach((icon, index) => {
+    if (!icon) return
+    
+    ScrollTrigger.create({
+      trigger: icon,
+      start: 'top 70%',
+      end: 'bottom 30%',
+      onEnter: () => activateIcon(icon, index),
+      onLeaveBack: () => deactivateIcon(icon)
+    })
+  })
 })
+
+// Helper: Activate icon with glow
+const activateIcon = (icon: HTMLElement, index: number) => {
+  icon.classList.add('active')
+  
+  gsap.to(icon, {
+    scale: 1.1,
+    duration: 0.5,
+    ease: 'back.out(1.7)'
+  })
+  
+  // Animate icon svg color
+  const iconSvg = icon.querySelector('svg')
+  if (iconSvg) {
+    gsap.to(iconSvg, {
+      color: events[index].color,
+      duration: 0.4
+    })
+  }
+}
+
+// Helper: Deactivate icon
+const deactivateIcon = (icon: HTMLElement) => {
+  icon.classList.remove('active')
+  
+  gsap.to(icon, {
+    scale: 1,
+    duration: 0.3
+  })
+  
+  const iconSvg = icon.querySelector('svg')
+  if (iconSvg) {
+    gsap.to(iconSvg, {
+      color: '#6B7280',
+      duration: 0.3
+    })
+  }
+}
 
 onUnmounted(() => {
   ScrollTrigger.getAll().forEach(trigger => trigger.kill())
@@ -266,6 +317,40 @@ onUnmounted(() => {
 .timeline-icon-box svg {
   color: #6B7280;
   transition: color 0.3s, filter 0.3s;
+}
+
+/* Active State (Premium Glow Effect) */
+.timeline-icon-box.active {
+  border-color: var(--teal-400);
+  background: rgba(45, 212, 191, 0.1);
+  box-shadow: 
+    0 0 20px rgba(45, 212, 191, 0.4),
+    0 0 40px rgba(45, 212, 191, 0.2),
+    0 0 60px rgba(45, 212, 191, 0.1),
+    inset 0 0 20px rgba(45, 212, 191, 0.15);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.timeline-icon-box.active svg {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Pulse Glow Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(45, 212, 191, 0.4),
+      0 0 40px rgba(45, 212, 191, 0.2),
+      0 0 60px rgba(45, 212, 191, 0.1),
+      inset 0 0 20px rgba(45, 212, 191, 0.15);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(45, 212, 191, 0.6),
+      0 0 60px rgba(45, 212, 191, 0.3),
+      0 0 90px rgba(45, 212, 191, 0.15),
+      inset 0 0 30px rgba(45, 212, 191, 0.2);
+  }
 }
 
 /* Timeline Card */
