@@ -131,6 +131,47 @@ onMounted(() => {
       onLeaveBack: () => deactivateIcon(icon)
     })
   })
+  
+  // Phase 4: Card Transitions (Fade-in from left)
+  cardRefs.value.forEach((card, index) => {
+    if (!card) return
+    
+    // Initial state: hidden
+    gsap.set(card, {
+      opacity: 0,
+      x: -50
+    })
+    
+    // Animate in
+    gsap.to(card, {
+      opacity: 1,
+      x: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 75%',
+        toggleActions: 'play none none reverse'
+      }
+    })
+    
+    // Label slide-in with delay
+    const label = card.querySelector('.timeline-label')
+    if (label) {
+      gsap.from(label, {
+        opacity: 0,
+        x: -30,
+        duration: 0.6,
+        delay: 0.3,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 75%',
+          toggleActions: 'play none none reverse'
+        }
+      })
+    }
+  })
 })
 
 // Helper: Activate icon with glow
