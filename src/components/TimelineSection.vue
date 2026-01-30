@@ -290,7 +290,7 @@ onUnmounted(() => {
 /* Active State (Premium Glow Effect) */
 .timeline-icon-box.active {
   border-color: var(--teal-400);
-  background: rgba(45, 212, 191, 0.1);
+  background: linear-gradient(135deg, #0f1820 0%, #111827 100%); /* Solid dark with subtle teal tint */
   box-shadow: 
     0 0 20px rgba(45, 212, 191, 0.4),
     0 0 40px rgba(45, 212, 191, 0.2),
