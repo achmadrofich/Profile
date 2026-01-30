@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { NTag } from 'naive-ui'
-import { SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline, GridOutline, BriefcaseOutline, BusinessOutline } from '@vicons/ionicons5'
+import { SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline, GridOutline, BriefcaseOutline, BusinessOutline, RocketOutline, BuildOutline } from '@vicons/ionicons5'
 import GrowthHeader from './GrowthHeader.vue'
 import MemoryModal from './MemoryModal.vue'
 import gsap from 'gsap'
@@ -74,6 +74,28 @@ const events = [
     icon: CodeSlashOutline,
     color: '#2DD4BF',
     tags: ['Laravel', 'Vue.js', 'Solana', 'AI Agents', 'System Architecture']
+  },
+  // 5. Education Platform - Founder & CTO (2024-Present)
+  {
+    type: 'work',
+    title: 'Founder & CTO',
+    time: '2024 - Present',
+    org: 'Educrea.site',
+    description: 'Leading the development of an AI-powered education platform. Building scalable architecture with Next.js and integrating advanced AI features for personalized learning experiences. Managing technical strategy and product roadmap.',
+    icon: RocketOutline,
+    color: '#F472B6',
+    tags: ['EdTech', 'AI Integration', 'Next.js', 'Product Leadership', 'Startup']
+  },
+  // 6. Development Studio - Owner (2023-Present)
+  {
+    type: 'business',
+    title: 'Owner',
+    time: '2023 - Present',
+    org: 'RexDev Studio',
+    description: 'Running a full-service development studio specializing in web applications, mobile apps, and blockchain solutions. Managing client projects, team coordination, and delivering high-quality digital products for diverse industries.',
+    icon: BuildOutline,
+    color: '#A78BFA',
+    tags: ['Web Development', 'Mobile Apps', 'Client Services', 'Team Leadership', 'Blockchain']
   }
 ]
 
