@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { NTag } from 'naive-ui'
 import { SchoolOutline, TrendingUpOutline, StorefrontOutline, CodeSlashOutline, GridOutline, BriefcaseOutline, BusinessOutline } from '@vicons/ionicons5'
 import GrowthHeader from './GrowthHeader.vue'
@@ -156,20 +156,25 @@ onMounted(() => {
   })
   
   // Phase 5: Progressive Line Drawing
-  if (timelineLineRef.value) {
-    gsap.set(timelineLineRef.value, { scaleY: 0 })
-    
-    gsap.to(timelineLineRef.value, {
-      scaleY: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.timeline-wrapper',
-        start: 'top 80%',
-        end: 'bottom 40%',
-        scrub: 1.5
-      }
-    })
-  }
+  nextTick(() => {
+    const lineEl = timelineLineRef.value
+    if (lineEl) {
+      // Set initial state via GSAP
+      gsap.set(lineEl, { scaleY: 0, transformOrigin: 'top' })
+      
+      // Animate scaleY on scroll
+      gsap.to(lineEl, {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.timeline-wrapper',
+          start: 'top 80%',
+          end: 'bottom 40%',
+          scrub: 1.5
+        }
+      })
+    }
+  })
 })
 
 // Helper: Activate icon with glow
