@@ -107,7 +107,7 @@ onUnmounted(() => {
         </h1>
         
         <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0 font-light" data-aos="fade-up" data-aos-delay="200">
-          <span class="text-teal-400 font-semibold min-h-[1.5em] inline-block">{{ typedText }}<span class="animate-pulse">|</span></span> 
+          <span class="text-teal-400 font-semibold min-h-[1.5em] inline-block">{{ typedText }}<span class="typing-cursor">|</span></span> 
           skilled in <span class="text-blue-400 font-semibold">Crypto, Smart Contracts, & Fullstack Development</span>.
         </p>
         
@@ -240,6 +240,15 @@ onUnmounted(() => {
 
 .animate-bounce-slow {
   animation: bounce-slow 4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.typing-cursor {
+  animation: blink 1s step-end infinite;
 }
 </style>
 
