@@ -35,8 +35,9 @@ onMounted(async () => {
       }
     })
 
-    // Init chars: We rely on the .from() tween below to set initial opacity 0.
-    // No manual gsap.set here to avoid conflicts.
+    // Init chars: Guarantee visibility first, then animate FROM hidden state
+    const chars = containerRef.value!.querySelectorAll('.char')
+    gsap.set(chars, { opacity: 1, y: 0 }) // Immediate visibility guarantee
     
     // Vine Setup
     const length = pathRef.value!.getTotalLength() + 5 // Extra buffer
@@ -53,9 +54,15 @@ onMounted(async () => {
         duration: 1.2,
         ease: 'power2.inOut'
       })
-      // Text animation removed to guarantee visibility
-      
-      // 2. Bloom gently pop
+      // 2. Text "types" along the vine (safe animation)
+      .from(chars, {
+        y: 15,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.03,
+        ease: 'power2.out'
+      }, "-=0.8")
+      // 3. Bloom gently pop
       .to(leafRef.value, {
         scale: 1,
         opacity: 1,
@@ -97,10 +104,10 @@ onUnmounted(() => {
         </linearGradient>
       </defs>
 
-      <!-- Smooth Organic Cubic Bezier Curve -->
+      <!-- Full-width Organic Cubic Bezier Curve (0 to 300) -->
       <path
         ref="pathRef"
-        d="M5,28 C80,38 220,38 295,24"
+        d="M0,28 C75,40 225,40 300,24"
         fill="none"
         stroke="url(#premiumVine)"
         stroke-width="3"
@@ -108,8 +115,8 @@ onUnmounted(() => {
         class="filter drop-shadow-[0_0_2px_rgba(45,212,191,0.3)]"
       />
       
-      <!-- Bloom at (295, 24) -->
-      <g ref="leafRef" transform="translate(295, 24)">
+      <!-- Bloom at exact endpoint (300, 24) -->
+      <g ref="leafRef" transform="translate(300, 24)">
          <circle r="3.5" fill="#5EEAD4" />
          <!-- Organic Asymmetric Petals -->
          <path d="M0,0 C2,-5 8,-6 9,0 C7,5 2,4 0,0" fill="#ccfbf1" transform="rotate(-30) translate(2,-2)" />
