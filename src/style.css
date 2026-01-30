@@ -8,6 +8,18 @@
 :root {
   background-color: #0B0E14;
   color: #ffffff;
+
+  /* Teal Color Harmony System */
+  --teal-50: #F0FDFA;
+  /* Highlights, particles */
+  --teal-400: #2DD4BF;
+  /* Primary vine, links */
+  --teal-500: #14B8A6;
+  /* Bloom centers, CTAs */
+  --teal-600: #0D9488;
+  /* Hover states */
+  --teal-900: #134E4A;
+  /* Shadows, depth */
 }
 
 body {
