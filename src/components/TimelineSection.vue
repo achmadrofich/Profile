@@ -125,9 +125,9 @@ const filteredEvents = computed(() => {
 // Dynamic line height based on filtered items
 const lineHeight = computed(() => {
   const itemCount = filteredEvents.value.length
-  // Each item is approximately 350px tall (including image), minus some offset
-  const height = itemCount * 350 - 100
-  return `${Math.max(height, 200)}px`
+  // Each item is approximately 480px tall (including image + margins)
+  const height = itemCount * 480
+  return `${Math.max(height, 300)}px`
 })
 
 // Refs for animation
