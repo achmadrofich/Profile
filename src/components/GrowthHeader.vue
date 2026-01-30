@@ -121,7 +121,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="containerRef" class="relative inline-block pb-3">
+  <div ref="containerRef" class="relative inline-block pb-3" role="heading" :aria-label="`${text} section`">
     <svg 
       class="absolute bottom-0 left-0 w-full h-[36px] pointer-events-none overflow-visible z-0 opacity-0 transition-opacity duration-500" 
       :class="{ '!opacity-100': true }" 

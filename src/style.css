@@ -49,3 +49,24 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #2DD4BF;
 }
+
+/* Accessibility: Respect User's Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Performance: will-change hint for animated elements */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}

@@ -62,7 +62,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav class="fixed left-0 top-0 h-full w-20 hidden md:flex flex-col items-center justify-between py-8 bg-dark/80 backdrop-blur-xl border-r border-teal-500/10 z-50 transition-all duration-300">
+  <nav class="fixed left-0 top-0 h-full w-20 hidden md:flex flex-col items-center justify-between py-8 z-50 transition-all duration-300 glassmorphism-nav">
     <!-- Logo -->
     <div class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500 cursor-pointer hover:scale-110 transition-transform duration-300" @click="scrollTo('hero')">
       AR
@@ -101,7 +101,7 @@ onUnmounted(() => {
   </nav>
 
   <!-- Mobile Nav -->
-  <nav class="fixed bottom-4 left-4 right-4 md:hidden bg-dark/80 backdrop-blur-xl border border-teal-500/10 rounded-2xl p-4 z-50 flex justify-around shadow-2xl">
+  <nav class="fixed bottom-4 left-4 right-4 md:hidden z-50 flex justify-around shadow-2xl glassmorphism-nav-mobile">
     <div 
       v-for="item in navItems" 
       :key="item.id"
@@ -116,4 +116,34 @@ onUnmounted(() => {
 
   </nav>
 </template>
+
+<style scoped>
+/* Premium Glassmorphism Navigation */
+.glassmorphism-nav {
+  background: rgba(11, 14, 20, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid transparent;
+  background-image: 
+    linear-gradient(rgba(11, 14, 20, 0.7), rgba(11, 14, 20, 0.7)),
+    linear-gradient(180deg, rgba(45, 212, 191, 0.15), rgba(20, 184, 166, 0.05));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.37),
+    inset 0 0 0 1px rgba(45, 212, 191, 0.1);
+}
+
+.glassmorphism-nav-mobile {
+  background: rgba(11, 14, 20, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(45, 212, 191, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(45, 212, 191, 0.15);
+}
+</style>
 
