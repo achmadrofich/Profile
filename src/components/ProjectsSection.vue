@@ -17,11 +17,23 @@ const projects = [
       { name: 'Vercel', detail: 'Automated CI/CD & Analytics' },
       { name: 'Tailwind', detail: 'v3.4 + Custom Design System' }
     ],
-    category: 'frontend',
-    link: 'https://rexweb3.vercel.app/'
+    category: 'frontend'
   },
   {
     id: 2,
+    title: 'RexDev Codex - Web3 GameFi',
+    description: 'A Play-to-Earn Web3 Game featuring NFT squads, survival dungeon runs, and $REX token economy.',
+    image: '/images/timeline/crypto.png',
+    tags: [
+      { name: 'Web3', detail: 'GameFi & NFTs' },
+      { name: 'Smart Contract', detail: 'Ethereum & Base Network' },
+      { name: 'dApp', detail: 'Wallet Integration' }
+    ],
+    category: 'blockchain',
+    link: 'https://rexweb3.vercel.app/'
+  },
+  {
+    id: 3,
     title: 'Web3 Wallet Auth',
     description: 'Backend services to interact with smart contracts and handle transaction lifecycles.',
     image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=800&auto=format&fit=crop',
@@ -33,7 +45,7 @@ const projects = [
     category: 'blockchain'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Smart Contract Interaction',
     description: 'Implemented read/write operations via ABI and gas awareness mechanisms.',
     image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop',
@@ -45,7 +57,7 @@ const projects = [
     category: 'blockchain'
   },
   {
-    id: 4,
+    id: 5,
     title: 'Blockchain Event Indexer',
     description: 'Listener for on-chain events normalizing data into structured SQL format.',
     image: 'https://images.unsplash.com/photo-1644361566696-3d442b5b482a?q=80&w=800&auto=format&fit=crop',
