@@ -67,6 +67,19 @@ const projects = [
       { name: 'Analytics', detail: 'Grafana Dashboard Integration' }
     ],
     category: 'backend'
+  },
+  {
+    id: 6,
+    title: 'REXNFT Marketplace',
+    description: 'A modern, premium NFT marketplace template featuring a 3D carousel and glassmorphism UI.',
+    image: 'https://image.thum.io/get/width/1200/crop/800/https://rexnft-marketplace-template.vercel.app/',
+    tags: [
+      { name: 'Frontend', detail: 'Interactive UI/UX' },
+      { name: 'Tailwind CSS', detail: 'Advanced styling & animations' },
+      { name: 'Web3', detail: 'NFT Marketplace Design' }
+    ],
+    category: 'frontend',
+    link: 'https://rexnft-marketplace-template.vercel.app/'
   }
 ]
 
