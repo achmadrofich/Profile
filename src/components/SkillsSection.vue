@@ -71,7 +71,7 @@ const rawSkills: Skill[] = [
   { 
     type: 'skill', 
     name: 'Web3 & Blockchain', 
-    icon: 'https://cdn.worldvectorlogo.com/logos/ethereum.svg', 
+    icon: '/images/web3.png', 
     proficiency: 90, 
     experience: '3+ Years', 
     description: 'Smart Contract development (Solidity), dApp integration (Wagmi/Ethers), and EVM architecture.', 
@@ -236,7 +236,7 @@ const toggleSkill = (skill: Skill) => {
                   :src="item.icon" 
                   :alt="item.name" 
                   class="w-16 h-16 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg" 
-                  :class="{ 'invert brightness-200': ['Next.js Stack', 'Express', 'Web3 & Blockchain'].includes(item.name) }"
+                  :class="{ 'invert brightness-200': ['Next.js Stack', 'Express'].includes(item.name) }"
                 />
                 <span class="font-semibold text-gray-200 text-lg group-hover:text-teal-400 transition-colors">{{ item.name }}</span>
               </div>
@@ -268,7 +268,7 @@ const toggleSkill = (skill: Skill) => {
                         <img 
                           :src="(item as DetailItem).skill.icon" 
                           class="w-20 h-20 drop-shadow-lg" 
-                          :class="{ 'invert brightness-200': ['Next.js Stack', 'Deep Learning', 'Web3 & Blockchain'].includes((item as DetailItem).skill.name) }" 
+                          :class="{ 'invert brightness-200': ['Next.js Stack', 'Deep Learning'].includes((item as DetailItem).skill.name) }" 
                         />
                       </div>
                       <div class="text-center">
