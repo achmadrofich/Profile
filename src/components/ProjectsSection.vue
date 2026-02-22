@@ -23,7 +23,7 @@ const projects = [
     id: 2,
     title: 'RexDev Codex - Web3 GameFi',
     description: 'A Play-to-Earn Web3 Game featuring NFT squads, survival dungeon runs, and $REX token economy.',
-    image: '/images/timeline/crypto.png',
+    image: '/images/Project/rexdev.jpg',
     tags: [
       { name: 'Web3', detail: 'GameFi & NFTs' },
       { name: 'Smart Contract', detail: 'Ethereum & Base Network' },
